@@ -11,6 +11,7 @@ end
 
 function love.draw()
     Push:start()
+    ASSETS:drawBackground()
     Push:finish()
 end
 

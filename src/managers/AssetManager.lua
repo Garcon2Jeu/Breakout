@@ -7,6 +7,12 @@ function AssetManager:init()
     self.colors   = self:getColors()
 end
 
+function AssetManager:drawBackground()
+    love.graphics.draw(self.graphics["background"], 0, 0, 0,
+        VIRTUAL_WIDTH / (self.graphics["background"]:getWidth() - 1),
+        VIRTUAL_HEIGHT / (self.graphics["background"]:getHeight() - 1))
+end
+
 function AssetManager:getAudio()
     return {
         ["brick_hit_1"] = love.audio.newSource("assets/audio/brick_hit_1.wav", "static"),
