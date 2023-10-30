@@ -2,6 +2,7 @@ AssetManager = Class {}
 
 function AssetManager:init()
     self.audio = self:getAudio()
+    self.fonts = self:getFonts()
 end
 
 function AssetManager:getAudio()
@@ -19,5 +20,17 @@ function AssetManager:getAudio()
         ["select"]      = love.audio.newSource("assets/audio/select.wav", "static"),
         ["victory"]     = love.audio.newSource("assets/audio/victory.wav", "static"),
         ["wall_hit"]    = love.audio.newSource("assets/audio/wall_hit.wav", "static")
+    }
+end
+
+function AssetManager:getFonts()
+    local small  = love.graphics.newFont("assets/fonts/font.ttf", 8)
+    local medium = love.graphics.newFont("assets/fonts/font.ttf", 16)
+    local large  = love.graphics.newFont("assets/fonts/font.ttf", 32)
+
+    return {
+        ["setSmall"] = function() return love.graphics.setFont(small) end,
+        ["setMedium"] = function() return love.graphics.setFont(medium) end,
+        ["setLarge"] = function() return love.graphics.setFont(large) end,
     }
 end

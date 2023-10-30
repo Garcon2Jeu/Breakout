@@ -2,6 +2,7 @@ require 'src.dependencies'
 
 function love.load()
     APP = App()
+    ASSETS = AssetManager()
 end
 
 function love.update(dt)
