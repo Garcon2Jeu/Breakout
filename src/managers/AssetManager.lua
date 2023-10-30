@@ -1,8 +1,10 @@
 AssetManager = Class {}
 
 function AssetManager:init()
-    self.audio = self:getAudio()
-    self.fonts = self:getFonts()
+    self.audio    = self:getAudio()
+    self.fonts    = self:getFonts()
+    self.graphics = self:getGraphics()
+    self.colors   = self:getColors()
 end
 
 function AssetManager:getAudio()
@@ -29,8 +31,34 @@ function AssetManager:getFonts()
     local large  = love.graphics.newFont("assets/fonts/font.ttf", 32)
 
     return {
-        ["setSmall"] = function() return love.graphics.setFont(small) end,
+        ["setSmall"]  = function() return love.graphics.setFont(small) end,
         ["setMedium"] = function() return love.graphics.setFont(medium) end,
-        ["setLarge"] = function() return love.graphics.setFont(large) end,
+        ["setLarge"]  = function() return love.graphics.setFont(large) end,
+    }
+end
+
+function AssetManager:getGraphics()
+    return {
+        ["arrows"]       = love.graphics.newImage("assets/graphics/arrows.png"),
+        ["background"]   = love.graphics.newImage("assets/graphics/background.png"),
+        ["blocks"]       = love.graphics.newImage("assets/graphics/blocks.png"),
+        ["breakout_big"] = love.graphics.newImage("assets/graphics/breakout_big.png"),
+        ["breakout"]     = love.graphics.newImage("assets/graphics/breakout.png"),
+        ["hearts"]       = love.graphics.newImage("assets/graphics/hearts.png"),
+        ["particle"]     = love.graphics.newImage("assets/graphics/particle.png"),
+        ["ui"]           = love.graphics.newImage("assets/graphics/ui.png"),
+    }
+end
+
+function AssetManager:getColors()
+    return {
+        ["setBlack"]  = function() love.graphics.setColor(0, 0, 0, 1) end,
+        ["setWhite"]  = function() love.graphics.setColor(1, 1, 1, 1) end,
+        ["setRed"]    = function() love.graphics.setColor(1, 0, 0, 1) end,
+        ["setGreen"]  = function() love.graphics.setColor(0, 1, 0, 1) end,
+        ["setBlue"]   = function() love.graphics.setColor(0, 0, 1, 1) end,
+        ["setPink"]   = function() love.graphics.setColor(1, 0, 1, 1) end,
+        ["setCyan"]   = function() love.graphics.setColor(0, 1, 1, 1) end,
+        ["setYellow"] = function() love.graphics.setColor(1, 1, 0, 1) end,
     }
 end
