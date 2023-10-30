@@ -1,13 +1,13 @@
 StateManager = Class {}
 
-function StateManager:init()
+function StateManager:init(states)
     self.empty = {
         update = function(dt) end,
         draw   = function() end,
         enter  = function(params) end,
         exit   = function() end,
     }
-    self.states = {}
+    self.states = states or {}
     self.current = self.empty
 end
 

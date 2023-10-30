@@ -3,11 +3,12 @@ App = Class {}
 function App:init()
     math.randomseed(os.time())
     self:setWindow()
-    self.keyspressed = {}
+    self.keysPressed = {}
 end
 
 function App:update(dt)
     self:quit()
+    self:flushKeys()
 end
 
 function App:setWindow()
@@ -21,7 +22,11 @@ function App:setWindow()
 end
 
 function App:wasKeyPressed(key)
-    return self.keyspressed[key]
+    return self.keysPressed[key]
+end
+
+function App:flushKeys()
+    self.keysPressed = {}
 end
 
 function App:quit()
