@@ -1,11 +1,19 @@
 ServeState = Class { __includes = BaseState }
 
-function ServeState:init() end
+function ServeState:init()
 
-function ServeState:update(dt) end
+end
 
-function ServeState:draw() end
+function ServeState:update(dt)
+    self.paddle:update(dt)
+end
 
-function ServeState:enter(params) end
+function ServeState:draw()
+    self.paddle:draw()
+end
+
+function ServeState:enter(params)
+    self.paddle = Paddle(params)
+end
 
 function ServeState:exit() end
