@@ -9,6 +9,8 @@ function love.load()
     }
 
     STATE:change("start")
+
+    ATLAS = AtlasManager()
 end
 
 function love.update(dt)
@@ -20,6 +22,7 @@ function love.draw()
     Push:start()
     ASSETS:drawBackground()
     STATE:draw()
+    ATLAS:draw()
     Push:finish()
 end
 
