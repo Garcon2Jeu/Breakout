@@ -7,6 +7,7 @@ require "src.App"
 require "src.managers.AssetManager"
 require "src.managers.AtlasManager"
 require "src.managers.StateManager"
+require "src.managers.MapManager"
 
 require "src.states.BaseState"
 require "src.states.StartState"

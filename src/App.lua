@@ -44,3 +44,7 @@ function App:slice(tbl, first, last, step)
 
     return sliced
 end
+
+function App:flipCoin()
+    return math.random(1, 2) == 1 and true or false
+end
