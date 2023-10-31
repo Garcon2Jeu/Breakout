@@ -4,6 +4,7 @@ function AtlasManager:init()
     self.atlas   = ASSETS.graphics["breakout"]
     self.bricks  = self:getBricks()
     self.balls   = self:getBalls()
+    self.hearts  = self:getHearts()
     self.paddles = self:getPaddles()
 end
 
@@ -23,23 +24,21 @@ function AtlasManager:draw()
     ------------------------------------------------------------------------------------
 
     ------------------------------ DRAW ALL BALLS-------------------------------------
-    local x = 10
-    local y = 10
+    -- local x = 10
+    -- local y = 10
 
-    for i = 1, #self.balls do
-        love.graphics.draw(self.atlas, self.balls[i], x, y)
-        x = x + 10
+    -- for i = 1, #self.balls do
+    --     love.graphics.draw(self.atlas, self.balls[i], x, y)
+    --     x = x + 10
 
-        if x >= VIRTUAL_WIDTH - 10 then
-            x = 10
-            y = y + 10
-        end
-    end
+    --     if x >= VIRTUAL_WIDTH - 10 then
+    --         x = 10
+    --         y = y + 10
+    --     end
+    -- end
     ------------------------------------------------------------------------------------
 
-    ------------------------------------------------------DEBUG-------------------------------------------------------------------
-    love.graphics.print(tostring(#self.balls), 50, 50)
-    ------------------------------------------------------DEBUG-------------------------------------------------------------------
+    -- love.graphics.draw(self.atlas, self.hearts[1], 10, 10)
 end
 
 function AtlasManager:getEvenQuads(tileWidth, tileHeight)
@@ -61,10 +60,33 @@ function AtlasManager:getEvenQuads(tileWidth, tileHeight)
 end
 
 function AtlasManager:getBricks()
-    return APP:slice(self:getEvenQuads(32, 16), nil, 21)
+    local tiledAtlas = self:getEvenQuads(32, 16)
+    local bricks = APP:slice(tiledAtlas, nil, 21)
+    table.insert(bricks, APP:slice(tiledAtlas, 24, 24)[1])
+
+    return bricks
 end
 
-function AtlasManager:getPaddles(y)
+function AtlasManager:getBalls()
+    local tiledAtlas = self:getEvenQuads(8, 8)
+    local balls = App:slice(tiledAtlas, 157, 160)
+    local toAdd = App:slice(tiledAtlas, 181, 183)
+
+    for key, ball in pairs(toAdd) do
+        table.insert(balls, ball)
+    end
+
+    return balls
+end
+
+function AtlasManager:getHearts()
+    return {
+        love.graphics.newQuad(128, 48, 10, 10, self.atlas),
+        love.graphics.newQuad(138, 48, 10, 10, self.atlas),
+    }
+end
+
+function AtlasManager:getPaddles()
     local paddles = {}
 
     for j = 0, 3 do
@@ -86,16 +108,4 @@ function AtlasManager:getPaddles(y)
     end
 
     return paddles
-end
-
-function AtlasManager:getBalls()
-    local tiledAtlas = self:getEvenQuads(8, 8)
-    local balls = App:slice(tiledAtlas, 157, 160)
-    local toAdd = App:slice(tiledAtlas, 181, 183)
-
-    for key, ball in pairs(toAdd) do
-        table.insert(balls, ball)
-    end
-
-    return balls
 end
