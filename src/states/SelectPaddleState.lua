@@ -8,6 +8,10 @@ function SelectPaddleState:update(dt)
     elseif APP:wasKeyPressed("left") then
         paddleSkin = paddleSkin - 4 < 2 and paddleSkin or paddleSkin - 4
     end
+
+    if APP:wasKeyPressed("return") then
+        STATE:change("serve", paddleSkin)
+    end
 end
 
 function SelectPaddleState:draw()

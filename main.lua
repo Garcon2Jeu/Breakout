@@ -7,6 +7,7 @@ function love.load()
     STATE = StateManager {
         ["start"] = function() return StartState() end,
         ["selectPaddle"] = function() return SelectPaddleState() end,
+        ["serve"] = function() return ServeState() end,
     }
 
     STATE:change("start")
