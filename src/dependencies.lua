@@ -15,3 +15,4 @@ require "src.states.ServeState"
 
 require "objects.Paddle"
 require "objects.Ball"
+require "objects.Brick"
