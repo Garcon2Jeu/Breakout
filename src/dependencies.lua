@@ -10,3 +10,4 @@ require "src.managers.StateManager"
 
 require "src.states.BaseState"
 require "src.states.StartState"
+require "src.states.SelectPaddleState"

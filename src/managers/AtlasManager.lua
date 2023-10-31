@@ -7,17 +7,18 @@ function AtlasManager:init()
     self.hearts   = self:getHearts()
     self.paddles  = self:getPaddles()
     self.powerUps = self:getPowerUps()
+    self.arrows   = self:getArrows()
 end
 
-function AtlasManager:getQuad(x, y, width, height)
+function AtlasManager:getQuad(x, y, width, height, atlas)
     return {
         ["width"] = width,
         ["height"] = height,
-        ["quad"] = love.graphics.newQuad(x, y, width, height, self.atlas)
+        ["quad"] = love.graphics.newQuad(x, y, width, height, atlas)
     }
 end
 
-function AtlasManager:getEvenQuads(tileWidth, tileHeight)
+function AtlasManager:getEvenQuads(tileWidth, tileHeight, atlas)
     local sheetWidth  = self.atlas:getWidth() / tileWidth
     local sheetHeight = self.atlas:getHeight() / tileHeight
 
@@ -27,7 +28,7 @@ function AtlasManager:getEvenQuads(tileWidth, tileHeight)
     for y = 0, sheetHeight - 1 do
         for x = 0, sheetWidth - 1 do
             table.insert(bricks,
-                self:getQuad(x * tileWidth, y * tileHeight, tileWidth, tileHeight))
+                self:getQuad(x * tileWidth, y * tileHeight, tileWidth, tileHeight, atlas))
         end
     end
 
@@ -35,7 +36,7 @@ function AtlasManager:getEvenQuads(tileWidth, tileHeight)
 end
 
 function AtlasManager:getBricks()
-    local tiledAtlas = self:getEvenQuads(32, 16)
+    local tiledAtlas = self:getEvenQuads(32, 16, self.atlas)
     local bricks = APP:slice(tiledAtlas, nil, 21)
     table.insert(bricks, APP:slice(tiledAtlas, 24, 24)[1])
 
@@ -43,7 +44,7 @@ function AtlasManager:getBricks()
 end
 
 function AtlasManager:getBalls()
-    local tiledAtlas = self:getEvenQuads(8, 8)
+    local tiledAtlas = self:getEvenQuads(8, 8, self.atlas)
     local balls = App:slice(tiledAtlas, 157, 160)
     local toAdd = App:slice(tiledAtlas, 181, 183)
 
@@ -56,8 +57,8 @@ end
 
 function AtlasManager:getHearts()
     return {
-        self:getQuad(128, 48, 10, 10),
-        self:getQuad(138, 48, 10, 10),
+        self:getQuad(128, 48, 10, 10, self.atlas),
+        self:getQuad(138, 48, 10, 10, self.atlas),
     }
 end
 
@@ -70,7 +71,7 @@ function AtlasManager:getPaddles()
         local width = 32
 
         for i = 1, 4 do
-            table.insert(paddles, self:getQuad(x, y, width, 16))
+            table.insert(paddles, self:getQuad(x, y, width, 16, self.atlas))
 
             x = x + (32 * i)
             width = width + 32
@@ -86,5 +87,9 @@ function AtlasManager:getPaddles()
 end
 
 function AtlasManager:getPowerUps()
-    return App:slice(self:getEvenQuads(16, 16), 145, 154)
+    return App:slice(self:getEvenQuads(16, 16, self.atlas), 145, 154)
+end
+
+function AtlasManager:getArrows()
+    return self:getEvenQuads(24, 24, ASSETS.graphics["arrows"])
 end

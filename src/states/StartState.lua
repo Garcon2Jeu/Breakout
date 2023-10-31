@@ -6,6 +6,14 @@ function StartState:update(dt)
     if APP:wasKeyPressed("up") or APP:wasKeyPressed("down") then
         highlighted = highlighted == 1 and 2 or 1
     end
+
+    if not APP:wasKeyPressed("return") then
+        return
+    end
+
+    if highlighted == 1 then
+        STATE:change("selectPaddle")
+    end
 end
 
 function StartState:draw()

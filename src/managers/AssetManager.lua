@@ -58,13 +58,14 @@ end
 
 function AssetManager:getColors()
     return {
-        ["setBlack"]  = function() love.graphics.setColor(0, 0, 0, 1) end,
-        ["setWhite"]  = function() love.graphics.setColor(1, 1, 1, 1) end,
-        ["setRed"]    = function() love.graphics.setColor(1, 0, 0, 1) end,
-        ["setGreen"]  = function() love.graphics.setColor(0, 1, 0, 1) end,
-        ["setBlue"]   = function() love.graphics.setColor(0, 0, 1, 1) end,
-        ["setPink"]   = function() love.graphics.setColor(1, 0, 1, 1) end,
-        ["setCyan"]   = function() love.graphics.setColor(0, 1, 1, 1) end,
-        ["setYellow"] = function() love.graphics.setColor(1, 1, 0, 1) end,
+        ["setBlack"]      = function() love.graphics.setColor(0, 0, 0, 1) end,
+        ["setWhite"]      = function() love.graphics.setColor(1, 1, 1, 1) end,
+        ["setRed"]        = function() love.graphics.setColor(1, 0, 0, 1) end,
+        ["setGreen"]      = function() love.graphics.setColor(0, 1, 0, 1) end,
+        ["setBlue"]       = function() love.graphics.setColor(0, 0, 1, 1) end,
+        ["setPink"]       = function() love.graphics.setColor(1, 0, 1, 1) end,
+        ["setCyan"]       = function() love.graphics.setColor(0, 1, 1, 1) end,
+        ["setYellow"]     = function() love.graphics.setColor(1, 1, 0, 1) end,
+        ["setSemiOpaque"] = function() love.graphics.setColor(1, 1, 1, .5) end,
     }
 end

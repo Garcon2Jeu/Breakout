@@ -1,3 +1,5 @@
+---@diagnostic disable: redundant-parameter
+
 StateManager = Class {}
 
 function StateManager:init(states)

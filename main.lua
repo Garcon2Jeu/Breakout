@@ -5,7 +5,8 @@ function love.load()
     ASSETS = AssetManager()
 
     STATE = StateManager {
-        ["start"] = function() return StartState() end
+        ["start"] = function() return StartState() end,
+        ["selectPaddle"] = function() return SelectPaddleState() end,
     }
 
     STATE:change("start")
