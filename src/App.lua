@@ -34,3 +34,13 @@ function App:quit()
         love.event.quit()
     end
 end
+
+function App:slice(tbl, first, last, step)
+    local sliced = {}
+
+    for i = first or 1, last or #tbl, step or 1 do
+        table.insert(sliced, tbl[i])
+    end
+
+    return sliced
+end
