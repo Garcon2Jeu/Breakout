@@ -5,26 +5,36 @@ local SPEED = 200
 function Paddle:init(skin)
     self.skin = skin
     self.x    = CENTER_WIDTH - ATLAS.paddles[self.skin].width / 2
-    self.y    = VIRTUAL_HEIGHT - 40
+    self.y    = VIRTUAL_HEIGHT - 30
     self.dx   = 0
 end
 
 function Paddle:update(dt)
-    self:move(dt)
+    self.dx = self:changeDx()
+    self.x  = self:move(dt)
+    self.x  = self:clamp(dt)
 end
 
 function Paddle:draw()
     love.graphics.draw(ASSETS.graphics["breakout"], ATLAS.paddles[self.skin].quad, self.x, self.y)
 end
 
-function Paddle:move(dt)
+function Paddle:changeDx()
     if love.keyboard.isDown("right") then
-        self.dx = SPEED
+        return SPEED
     elseif love.keyboard.isDown("left") then
-        self.dx = -SPEED
+        return -SPEED
     else
-        self.dx = 0
+        return 0
     end
+end
 
-    self.x = self.x + self.dx * dt
+function Paddle:move(dt)
+    return self.x + self.dx * dt
+end
+
+function Paddle:clamp(dt)
+    return self.dx < 0
+        and math.max(0, self.x)
+        or math.min(self.x, VIRTUAL_WIDTH - ATLAS.paddles[self.skin].width)
 end
