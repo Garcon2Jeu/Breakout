@@ -1,4 +1,4 @@
-ServeState = Class {}
+ServeState = Class { __includes = BaseState }
 
 function ServeState:init() end
 
