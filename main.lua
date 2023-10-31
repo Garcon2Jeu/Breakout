@@ -8,6 +8,7 @@ function love.load()
         ["start"] = function() return StartState() end,
         ["selectPaddle"] = function() return SelectPaddleState() end,
         ["serve"] = function() return ServeState() end,
+        ["play"] = function() return PlayState() end,
     }
 
     STATE:change("start")
