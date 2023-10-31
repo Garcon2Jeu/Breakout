@@ -1,44 +1,12 @@
 AtlasManager = Class {}
 
 function AtlasManager:init()
-    self.atlas   = ASSETS.graphics["breakout"]
-    self.bricks  = self:getBricks()
-    self.balls   = self:getBalls()
-    self.hearts  = self:getHearts()
-    self.paddles = self:getPaddles()
-end
-
-function AtlasManager:draw()
-    ------------------------------ DRAW ALL BRICKS-------------------------------------
-    -- local x = 10
-    -- local y = 10
-    -- for i = 1, #self.bricks do
-    --     love.graphics.draw(self.atlas, self.bricks[i], x, y)
-    --     x = x + 40
-
-    --     if x >= VIRTUAL_WIDTH - 32 then
-    --         x = 10
-    --         y = y + 20
-    --     end
-    -- end
-    ------------------------------------------------------------------------------------
-
-    ------------------------------ DRAW ALL BALLS-------------------------------------
-    -- local x = 10
-    -- local y = 10
-
-    -- for i = 1, #self.balls do
-    --     love.graphics.draw(self.atlas, self.balls[i], x, y)
-    --     x = x + 10
-
-    --     if x >= VIRTUAL_WIDTH - 10 then
-    --         x = 10
-    --         y = y + 10
-    --     end
-    -- end
-    ------------------------------------------------------------------------------------
-
-    -- love.graphics.draw(self.atlas, self.hearts[1], 10, 10)
+    self.atlas    = ASSETS.graphics["breakout"]
+    self.bricks   = self:getBricks()
+    self.balls    = self:getBalls()
+    self.hearts   = self:getHearts()
+    self.paddles  = self:getPaddles()
+    self.powerUps = self:getPowerUps()
 end
 
 function AtlasManager:getEvenQuads(tileWidth, tileHeight)
@@ -108,4 +76,8 @@ function AtlasManager:getPaddles()
     end
 
     return paddles
+end
+
+function AtlasManager:getPowerUps()
+    return App:slice(self:getEvenQuads(16, 16), 145, 154)
 end

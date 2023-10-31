@@ -22,7 +22,6 @@ function love.draw()
     Push:start()
     ASSETS:drawBackground()
     STATE:draw()
-    ATLAS:draw()
     Push:finish()
 end
 
