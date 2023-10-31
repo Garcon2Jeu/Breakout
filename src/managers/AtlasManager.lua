@@ -9,6 +9,14 @@ function AtlasManager:init()
     self.powerUps = self:getPowerUps()
 end
 
+function AtlasManager:getQuad(x, y, width, height)
+    return {
+        ["width"] = width,
+        ["height"] = height,
+        ["quad"] = love.graphics.newQuad(x, y, width, height, self.atlas)
+    }
+end
+
 function AtlasManager:getEvenQuads(tileWidth, tileHeight)
     local sheetWidth  = self.atlas:getWidth() / tileWidth
     local sheetHeight = self.atlas:getHeight() / tileHeight
@@ -19,8 +27,7 @@ function AtlasManager:getEvenQuads(tileWidth, tileHeight)
     for y = 0, sheetHeight - 1 do
         for x = 0, sheetWidth - 1 do
             table.insert(bricks,
-                love.graphics.newQuad(x * tileWidth, y * tileHeight,
-                    tileWidth, tileHeight, self.atlas))
+                self:getQuad(x * tileWidth, y * tileHeight, tileWidth, tileHeight))
         end
     end
 
@@ -49,8 +56,8 @@ end
 
 function AtlasManager:getHearts()
     return {
-        love.graphics.newQuad(128, 48, 10, 10, self.atlas),
-        love.graphics.newQuad(138, 48, 10, 10, self.atlas),
+        self:getQuad(128, 48, 10, 10),
+        self:getQuad(138, 48, 10, 10),
     }
 end
 
@@ -63,7 +70,7 @@ function AtlasManager:getPaddles()
         local width = 32
 
         for i = 1, 4 do
-            table.insert(paddles, love.graphics.newQuad(x, y, width, 16, self.atlas))
+            table.insert(paddles, self:getQuad(x, y, width, 16))
 
             x = x + (32 * i)
             width = width + 32
