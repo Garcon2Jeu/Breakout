@@ -14,3 +14,4 @@ require "src.states.SelectPaddleState"
 require "src.states.ServeState"
 
 require "objects.Paddle"
+require "objects.Ball"
