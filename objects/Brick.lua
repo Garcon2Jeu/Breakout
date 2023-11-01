@@ -5,15 +5,23 @@ function Brick:init(x, y, skin)
     self.tier = 0
     self.x = x
     self.y = y
-    self.hitbox = Hitbox(ATLAS.bricks[self.skin].width, ATLAS.bricks[self.skin].height)
+    self.hitbox = Hitbox(self.x - 2, self.y - 2,
+        ATLAS.bricks[self.skin].width + 4, ATLAS.bricks[self.skin].height + 4)
+
+    self.inPlay = true
 end
 
 function Brick:update(dt)
-    self.hitbox:update(self.x, self.y)
+    if self.inPlay then
+        self.hitbox:update(self.x, self.y)
+    end
 end
 
 function Brick:draw()
-    love.graphics.draw(ASSETS.graphics["breakout"], ATLAS.bricks[self.skin + self.tier].quad, self.x, self.y)
+    if self.inPlay then
+        love.graphics.draw(ASSETS.graphics["breakout"], ATLAS.bricks[self.skin + self.tier].quad, self.x, self.y)
+        self.hitbox:draw()
+    end
 end
 
 function Brick:setSkin(skin)
@@ -22,4 +30,8 @@ end
 
 function Brick:setTier(tier)
     self.tier = tier
+end
+
+function Brick:destroy()
+    self.inPlay = false
 end

@@ -10,8 +10,8 @@ local skins = { 1, 5, 9, 13, 17 }
 function MapManager:factory(highestSkin, highestTier, lowestSkin, lowestTier)
     local map = {}
 
-    local rows = 5
-    local columns = 13
+    local rows = 2
+    local columns = 5
     columns = columns % 2 == 0 and columns + 1 or columns
 
     local highestSkin = highestSkin or 3

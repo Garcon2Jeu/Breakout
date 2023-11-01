@@ -7,7 +7,8 @@ function Paddle:init(skin)
     self.x      = CENTER_WIDTH - ATLAS.paddles[self.skin].width / 2
     self.y      = VIRTUAL_HEIGHT - 30
     self.dx     = 0
-    self.hitbox = Hitbox(ATLAS.paddles[self.skin].width, ATLAS.paddles[self.skin].height)
+    self.hitbox = Hitbox(self.x, self.y,
+        ATLAS.paddles[self.skin].width, ATLAS.paddles[self.skin].height)
 end
 
 function Paddle:update(dt)

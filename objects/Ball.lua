@@ -8,7 +8,8 @@ function Ball:init(skin)
     self.y = STATE.current.paddle.y - 20
     self.dx = -60
     self.dy = -SPEED
-    self.hitbox = Hitbox(ATLAS.balls[self.skin].width, ATLAS.balls[self.skin].height)
+    self.hitbox = Hitbox(self.x, self.y,
+        ATLAS.balls[self.skin].width, ATLAS.balls[self.skin].height)
 end
 
 function Ball:update(dt)
@@ -16,6 +17,7 @@ function Ball:update(dt)
     self.hitbox:update(self.x, self.y)
     self:clamp()
     self:bounceOffPaddle()
+    self:bounceOffBricks()
 end
 
 function Ball:draw()
@@ -64,5 +66,15 @@ function Ball:bounceOffPaddle()
     if self.hitbox:hasCollided(STATE.current.paddle.hitbox) then
         self.y  = STATE.current.paddle.y - ATLAS.balls[self.skin].height
         self.dy = -self.dy
+    end
+end
+
+function Ball:bounceOffBricks()
+    for key, brick in pairs(STATE.current.map) do
+        if brick.inPlay and self.hitbox:hasCollided(brick.hitbox) then
+            brick:destroy()
+            self.y = brick.y + ATLAS.bricks[self.skin].height
+            self.dy = -self.dy
+        end
     end
 end
