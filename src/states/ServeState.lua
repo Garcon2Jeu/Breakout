@@ -16,7 +16,7 @@ end
 function ServeState:draw()
     self.paddle:draw()
     self.ball:draw()
-    -- MapManager:draw(self.map)
+    MapManager:draw(self.map)
 end
 
 function ServeState:enter(params)

@@ -14,7 +14,7 @@ function PlayState:update(dt)
 end
 
 function PlayState:draw()
-    -- MapManager:draw(self.map)
+    MapManager:draw(self.map)
     self.paddle:draw()
     self.ball:draw()
 end
