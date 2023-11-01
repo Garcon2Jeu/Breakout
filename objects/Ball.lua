@@ -8,16 +8,20 @@ function Ball:init(skin)
     self.y = STATE.current.paddle.y - 20
     self.dx = -60
     self.dy = -SPEED
+    self.hitbox = Hitbox(ATLAS.balls[self.skin].width, ATLAS.balls[self.skin].height)
 end
 
 function Ball:update(dt)
     self:move(dt)
+    self.hitbox:update(self.x, self.y)
     self:clamp()
+    self:bounceOffPaddle()
 end
 
 function Ball:draw()
     love.graphics.draw(ASSETS.graphics["breakout"],
         ATLAS.balls[self.skin].quad, self.x, self.y)
+    self.hitbox:draw()
 end
 
 function Ball:followPaddle(paddleSkin)
@@ -53,5 +57,12 @@ function Ball:clamp()
         self.x = VIRTUAL_WIDTH - ATLAS.balls[self.skin].width
         self.dx = -self.dx
         return
+    end
+end
+
+function Ball:bounceOffPaddle()
+    if self.hitbox:hasCollided(STATE.current.paddle.hitbox) then
+        self.y  = STATE.current.paddle.y - ATLAS.balls[self.skin].height
+        self.dy = -self.dy
     end
 end

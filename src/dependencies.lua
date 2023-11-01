@@ -15,6 +15,7 @@ require "src.states.SelectPaddleState"
 require "src.states.ServeState"
 require "src.states.PlayState"
 
+require "objects.Hitbox"
 require "objects.Paddle"
 require "objects.Ball"
 require "objects.Brick"
