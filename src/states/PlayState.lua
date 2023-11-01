@@ -10,12 +10,13 @@ end
 
 function PlayState:update(dt)
     self.paddle:update(dt)
+    self.ball:update(dt)
 end
 
 function PlayState:draw()
+    -- MapManager:draw(self.map)
     self.paddle:draw()
     self.ball:draw()
-    MapManager:draw(self.map)
 end
 
 function PlayState:exit() end

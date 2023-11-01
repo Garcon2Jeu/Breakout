@@ -1,7 +1,6 @@
 ServeState = Class { __includes = BaseState }
 
 function ServeState:init()
-    self.ball = Ball(1)
     self.map = MapManager:factory()
 end
 
@@ -17,11 +16,12 @@ end
 function ServeState:draw()
     self.paddle:draw()
     self.ball:draw()
-    MapManager:draw(self.map)
+    -- MapManager:draw(self.map)
 end
 
 function ServeState:enter(params)
     self.paddle = Paddle(params)
+    self.ball = Ball(1)
 end
 
 function ServeState:exit() end
