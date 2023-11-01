@@ -34,3 +34,35 @@ function Hitbox:draw()
     love.graphics.rectangle("line", self.left, self.top, self.width, self.height)
     ASSETS.colors["setWhite"]()
 end
+
+-- function Hitbox:hasCollidedLeft(foreign)
+--     if self.right > foreign.left then
+--         return true
+--     end
+
+--     return false
+-- end
+
+-- function Hitbox:hasCollidedRight(foreign)
+--     if self.left < foreign.right then
+--         return true
+--     end
+
+--     return false
+-- end
+
+-- function Hitbox:hasCollidedTop(foreign)
+--     if self.bottom > foreign.top then
+--         return true
+--     end
+
+--     return false
+-- end
+
+-- function Hitbox:hasCollidedBottom(foreign)
+--     if self.top < foreign.bottom then
+--         return true
+--     end
+
+--     return false
+-- end

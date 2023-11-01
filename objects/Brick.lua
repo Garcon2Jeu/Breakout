@@ -5,8 +5,8 @@ function Brick:init(x, y, skin)
     self.tier = 0
     self.x = x
     self.y = y
-    self.hitbox = Hitbox(self.x - 2, self.y - 2,
-        ATLAS.bricks[self.skin].width + 4, ATLAS.bricks[self.skin].height + 4)
+    self.hitbox = Hitbox(self.x, self.y,
+        ATLAS.bricks[self.skin].width, ATLAS.bricks[self.skin].height)
 
     self.inPlay = true
 end
@@ -20,7 +20,7 @@ end
 function Brick:draw()
     if self.inPlay then
         love.graphics.draw(ASSETS.graphics["breakout"], ATLAS.bricks[self.skin + self.tier].quad, self.x, self.y)
-        self.hitbox:draw()
+        -- self.hitbox:draw()
     end
 end
 

@@ -1,29 +1,29 @@
 Ball = Class {}
 
-local SPEED = 100
+local SPEED = 75
 
 function Ball:init(skin)
     self.skin = skin
     self.x = 0
     self.y = STATE.current.paddle.y - 20
-    self.dx = -60
-    self.dy = -SPEED
+    self.dx = 0
+    self.dy = -50
     self.hitbox = Hitbox(self.x, self.y,
-        ATLAS.balls[self.skin].width, ATLAS.balls[self.skin].height)
+        ATLAS.balls[self.skin].width + 2, ATLAS.balls[self.skin].height + 2)
 end
 
 function Ball:update(dt)
     self:move(dt)
-    self.hitbox:update(self.x, self.y)
+    self.hitbox:update(self.x - 2, self.y - 2)
     self:clamp()
     self:bounceOffPaddle()
-    self:bounceOffBricks()
+    self:hitBricks()
 end
 
 function Ball:draw()
     love.graphics.draw(ASSETS.graphics["breakout"],
         ATLAS.balls[self.skin].quad, self.x, self.y)
-    self.hitbox:draw()
+    -- self.hitbox:draw()
 end
 
 function Ball:followPaddle(paddleSkin)
@@ -69,12 +69,37 @@ function Ball:bounceOffPaddle()
     end
 end
 
-function Ball:bounceOffBricks()
+function Ball:hitBricks()
     for key, brick in pairs(STATE.current.map) do
         if brick.inPlay and self.hitbox:hasCollided(brick.hitbox) then
             brick:destroy()
-            self.y = brick.y + ATLAS.bricks[self.skin].height
-            self.dy = -self.dy
+            self:bounceOffBricks(brick)
+
+            break
         end
+    end
+end
+
+function Ball:bounceOffBricks(brick)
+    if self.hitbox.left + 2 < brick.hitbox.left and self.dx > 0 then
+        self.x = brick.x - ATLAS.balls[self.skin].width
+        self.dx = -self.dx
+    elseif self.hitbox.left + 6 > brick.hitbox.left + 32 and self.dx < 0 then
+        self.x = brick.x + ATLAS.bricks[brick.skin].width
+        self.dx = -self.dx
+    elseif self.hitbox.top < brick.hitbox.top then
+        self.y = brick.y - ATLAS.balls[self.skin].height
+        self.dy = -self.dy
+    else
+        self.y = brick.y + ATLAS.bricks[brick.skin].height
+        self.dy = -self.dy
+    end
+
+    if math.abs(self.dy) < 150 then
+        self.dy = self.dy * 1.3
+    end
+
+    if self.dx == 0 then
+        self.dx = math.random(-20, 20)
     end
 end
