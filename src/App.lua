@@ -4,6 +4,8 @@ function App:init()
     math.randomseed(os.time())
     self:setWindow()
     self.keysPressed = {}
+
+    self.file = FileManager()
 end
 
 function App:update(dt)

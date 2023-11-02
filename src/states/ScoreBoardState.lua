@@ -1,11 +1,18 @@
 ScoreBoardState = Class { __includes = BaseState }
 
-function ScoreBoardState:init() end
+function ScoreBoardState:update(dt)
+    if APP:wasKeyPressed("backspace") then
+        STATE:change("start")
+    end
+end
 
-function ScoreBoardState:update(dt) end
-
-function ScoreBoardState:draw() end
-
-function ScoreBoardState:enter(params) end
-
-function ScoreBoardState:exit() end
+function ScoreBoardState:draw()
+    ASSETS.fonts["setMedium"]()
+    local y = 15
+    for index, data in ipairs(APP.file:load()) do
+        love.graphics.printf(tostring(index) .. ". " .. data.name .. " = " .. data.score, 0, y, VIRTUAL_WIDTH, "center")
+        y = y + 20
+    end
+    ASSETS.fonts["setSmall"]()
+    love.graphics.printf("Press Backspace to return", 0, y + 15, VIRTUAL_WIDTH, "center")
+end
