@@ -3,7 +3,7 @@ Ball = Class {}
 local SPEED = 75
 
 function Ball:init(skin)
-    self.skin = skin
+    self.skin = skin or 1
     self.x = 0
     self.y = STATE.current.paddle.y - 100
     self.dx = -50
@@ -46,12 +46,6 @@ function Ball:clamp()
         return
     end
 
-    if self.dy > 0 and self.y + ATLAS.balls[self.skin].width >= VIRTUAL_HEIGHT then
-        self.y = VIRTUAL_HEIGHT - ATLAS.balls[self.skin].width
-        self.dy = -self.dy * .9
-        return
-    end
-
     if self.dx < 0 and self.x <= 0 then
         self.x = 0
         self.dx = -self.dx * .9
@@ -62,6 +56,12 @@ function Ball:clamp()
         self.x = VIRTUAL_WIDTH - ATLAS.balls[self.skin].width
         self.dx = -self.dx * .9
         return
+    end
+end
+
+function Ball:isLost()
+    if self.dy > 0 and self.y + ATLAS.balls[self.skin].width >= VIRTUAL_HEIGHT then
+        return true
     end
 end
 

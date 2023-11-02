@@ -33,3 +33,11 @@ function PlayerStats:drawScore()
     love.graphics.print("SCORE:", VIRTUAL_WIDTH - 65, 6)
     love.graphics.printf(tostring(self.score), VIRTUAL_WIDTH - 60, 6, 50, "right")
 end
+
+function PlayerStats:addToScore(value)
+    self.score = self.score + value
+end
+
+function PlayerStats:removeHeart()
+    self.hearts = self.hearts - 1
+end

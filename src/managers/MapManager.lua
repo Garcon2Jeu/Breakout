@@ -14,7 +14,7 @@ function MapManager:factory(highestSkin, highestTier, lowestSkin, lowestTier)
     local columns = 13
     columns = columns % 2 == 0 and columns + 1 or columns
 
-    local highestSkin = highestSkin or 3
+    local highestSkin = highestSkin or 1
     local highestTier = highestTier or 0
     local lowestSkin = lowestSkin or 1
     local lowestTier = lowestTier or 0

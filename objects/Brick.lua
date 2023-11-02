@@ -29,12 +29,15 @@ end
 
 function Brick:setSkin(skin)
     self.skin = skin
+    self.value = (self.skin + self.tier) * 100
 end
 
 function Brick:setTier(tier)
     self.tier = tier
+    self.value = (self.skin + self.tier) * 100
 end
 
 function Brick:destroy()
     self.inPlay = false
+    STATE.current.player:addToScore(self.value)
 end

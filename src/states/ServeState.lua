@@ -1,10 +1,5 @@
 ServeState = Class { __includes = BaseState }
 
-function ServeState:init()
-    self.map = MapManager:factory()
-    self.player = PlayerStats()
-end
-
 function ServeState:update(dt)
     self.paddle:update(dt)
     self.ball:followPaddle(self.paddle.skin)
@@ -22,8 +17,18 @@ function ServeState:draw()
 end
 
 function ServeState:enter(params)
-    self.paddle = Paddle(params)
-    self.ball = Ball(1)
+    if type(params) == "number" then
+        self.paddle = Paddle(params)
+        self.ball = Ball()
+        self.map = MapManager:factory()
+        self.player = PlayerStats()
+        return
+    end
+
+    self.paddle = params.paddle
+    self.ball = Ball()
+    self.map = params.map
+    self.player = params.player
 end
 
 function ServeState:exit() end
