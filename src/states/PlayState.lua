@@ -17,6 +17,10 @@ function PlayState:update(dt)
         self.player:removeHeart()
         STATE:change("serve", self)
     end
+
+    if self.player.hearts < 1 then
+        STATE:change("over", self)
+    end
 end
 
 function PlayState:draw()

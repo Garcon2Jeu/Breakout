@@ -5,7 +5,7 @@ function ServeState:update(dt)
     self.ball:followPaddle(self.paddle.skin)
 
     if APP:wasKeyPressed("space") then
-        STATE:change("play", self)
+        STATE:change("over", self)
     end
 end
 
