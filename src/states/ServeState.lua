@@ -17,7 +17,7 @@ end
 function ServeState:draw()
     self.paddle:draw()
     self.ball:draw()
-    -- MapManager:draw(self.map)
+    MapManager:draw(self.map)
     self.player:draw()
 end
 
