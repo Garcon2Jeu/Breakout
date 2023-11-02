@@ -4,7 +4,6 @@ OverState = Class { __includes = BaseState }
 local topChoice = true
 
 
-
 function OverState:enter(params)
     self.player = params.player
 end

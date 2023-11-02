@@ -41,3 +41,7 @@ end
 function PlayerStats:removeHeart()
     self.hearts = self.hearts - 1
 end
+
+function PlayerStats:increaseLevel()
+    self.level = self.level + 1
+end

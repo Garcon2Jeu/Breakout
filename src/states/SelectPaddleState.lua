@@ -1,6 +1,8 @@
 SelectPaddleState = Class { __includes = BaseState }
 
+
 local paddleSkin = 2
+
 
 function SelectPaddleState:update(dt)
     if APP:wasKeyPressed("right") then
@@ -10,7 +12,12 @@ function SelectPaddleState:update(dt)
     end
 
     if APP:wasKeyPressed("return") then
-        STATE:change("serve", paddleSkin)
+        self.paddle = Paddle(paddleSkin)
+        self.ball = Ball()
+        self.map = MapManager:factory()
+        self.player = PlayerStats()
+
+        STATE:change("serve", self)
     end
 end
 

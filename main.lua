@@ -9,6 +9,7 @@ function love.load()
         ["selectPaddle"] = function() return SelectPaddleState() end,
         ["serve"] = function() return ServeState() end,
         ["play"] = function() return PlayState() end,
+        ["victory"] = function() return VictoryState() end,
         ["over"] = function() return OverState() end,
     }
 

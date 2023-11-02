@@ -1,7 +1,5 @@
 PlayState = Class { __includes = BaseState }
 
-function PlayState:init() end
-
 function PlayState:enter(params)
     self.paddle = params.paddle
     self.ball   = params.ball
@@ -15,11 +13,17 @@ function PlayState:update(dt)
 
     if self.ball:isLost() then
         self.player:removeHeart()
+        self.ball = Ball()
+
         STATE:change("serve", self)
     end
 
     if self.player.hearts < 1 then
         STATE:change("over", self)
+    end
+
+    if self:checkVictory() then
+        STATE:change("victory", self)
     end
 end
 
@@ -31,3 +35,13 @@ function PlayState:draw()
 end
 
 function PlayState:exit() end
+
+function PlayState:checkVictory()
+    for key, brick in pairs(self.map) do
+        if brick.inPlay then
+            return false
+        end
+    end
+
+    return true
+end

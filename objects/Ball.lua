@@ -5,9 +5,9 @@ local SPEED = 75
 function Ball:init(skin)
     self.skin = skin or 1
     self.x = 0
-    self.y = STATE.current.paddle.y - 100
-    self.dx = -50
-    self.dy = 50
+    self.y = STATE.current.paddle.y - 25
+    self.dx = 0
+    self.dy = -50
     self.hitbox = Hitbox(self.x, self.y,
         ATLAS.balls[self.skin].width + 2, ATLAS.balls[self.skin].height + 2)
 end
