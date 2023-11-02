@@ -17,6 +17,7 @@ require "src.states.ServeState"
 require "src.states.PlayState"
 require "src.states.VictoryState"
 require "src.states.OverState"
+require "src.states.EnterScoreState"
 
 require "objects.Hitbox"
 require "objects.Paddle"

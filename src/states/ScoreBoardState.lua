@@ -1,4 +1,4 @@
-ScoreBoardState = Class {}
+ScoreBoardState = Class { __includes = BaseState }
 
 function ScoreBoardState:init() end
 

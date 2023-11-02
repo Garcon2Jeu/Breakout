@@ -12,6 +12,7 @@ function love.load()
         ["play"]         = function() return PlayState() end,
         ["victory"]      = function() return VictoryState() end,
         ["over"]         = function() return OverState() end,
+        ["enterScore"]   = function() return EnterScoreState() end,
     }
 
     STATE:change("start")
