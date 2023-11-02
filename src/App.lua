@@ -7,6 +7,7 @@ function App:init()
 end
 
 function App:update(dt)
+    self:restart()
     self:quit()
     self:flushKeys()
 end
@@ -32,6 +33,12 @@ end
 function App:quit()
     if self:wasKeyPressed("escape") then
         love.event.quit()
+    end
+end
+
+function App:restart()
+    if self:wasKeyPressed("backspace") then
+        love.load()
     end
 end
 

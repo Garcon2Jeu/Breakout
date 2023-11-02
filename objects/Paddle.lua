@@ -20,7 +20,10 @@ end
 
 function Paddle:draw()
     love.graphics.draw(ASSETS.graphics["breakout"], ATLAS.paddles[self.skin].quad, self.x, self.y)
-    self.hitbox:draw()
+
+    ------------------------------------------------------DEBUG-------------------------------------------------------------------
+    -- self.hitbox:draw()
+    ------------------------------------------------------DEBUG-------------------------------------------------------------------
 end
 
 function Paddle:changeDx()

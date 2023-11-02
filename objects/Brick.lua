@@ -20,7 +20,10 @@ end
 function Brick:draw()
     if self.inPlay then
         love.graphics.draw(ASSETS.graphics["breakout"], ATLAS.bricks[self.skin + self.tier].quad, self.x, self.y)
+
+        ------------------------------------------------------DEBUG-------------------------------------------------------------------
         -- self.hitbox:draw()
+        ------------------------------------------------------DEBUG-------------------------------------------------------------------
     end
 end
 

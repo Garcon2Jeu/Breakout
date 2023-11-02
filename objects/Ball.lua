@@ -5,9 +5,9 @@ local SPEED = 75
 function Ball:init(skin)
     self.skin = skin
     self.x = 0
-    self.y = STATE.current.paddle.y - 20
-    self.dx = 0
-    self.dy = -50
+    self.y = STATE.current.paddle.y - 100
+    self.dx = -50
+    self.dy = 50
     self.hitbox = Hitbox(self.x, self.y,
         ATLAS.balls[self.skin].width + 2, ATLAS.balls[self.skin].height + 2)
 end
@@ -23,7 +23,10 @@ end
 function Ball:draw()
     love.graphics.draw(ASSETS.graphics["breakout"],
         ATLAS.balls[self.skin].quad, self.x, self.y)
+
+    ------------------------------------------------------DEBUG-------------------------------------------------------------------
     -- self.hitbox:draw()
+    ------------------------------------------------------DEBUG-------------------------------------------------------------------
 end
 
 function Ball:followPaddle(paddleSkin)
@@ -39,34 +42,56 @@ end
 function Ball:clamp()
     if self.dy < 0 and self.y <= 0 then
         self.y = 0
-        self.dy = -self.dy
+        self.dy = -self.dy * .9
         return
     end
 
     if self.dy > 0 and self.y + ATLAS.balls[self.skin].width >= VIRTUAL_HEIGHT then
         self.y = VIRTUAL_HEIGHT - ATLAS.balls[self.skin].width
-        self.dy = -self.dy
+        self.dy = -self.dy * .9
         return
     end
 
     if self.dx < 0 and self.x <= 0 then
         self.x = 0
-        self.dx = -self.dx
+        self.dx = -self.dx * .9
         return
     end
 
     if self.dx > 0 and self.x + ATLAS.balls[self.skin].width >= VIRTUAL_WIDTH then
         self.x = VIRTUAL_WIDTH - ATLAS.balls[self.skin].width
-        self.dx = -self.dx
+        self.dx = -self.dx * .9
         return
     end
 end
 
 function Ball:bounceOffPaddle()
-    if self.hitbox:hasCollided(STATE.current.paddle.hitbox) then
-        self.y  = STATE.current.paddle.y - ATLAS.balls[self.skin].height
-        self.dy = -self.dy
+    if not self.hitbox:hasCollided(STATE.current.paddle.hitbox) then
+        return
     end
+
+    self.y = STATE.current.paddle.y - ATLAS.balls[self.skin].height
+    self.dy = -self.dy
+
+    local paddleCenter = STATE.current.paddle.x +
+        (ATLAS.paddles[STATE.current.paddle.skin].width / 2)
+    local multiplier = STATE.current.paddle.x +
+        ATLAS.paddles[STATE.current.paddle.skin].width / 2 - self.x
+
+    if self.x < paddleCenter
+        and STATE.current.paddle.dx < 0
+        and not self:hasSameDxAs(STATE.current.paddle) then
+        self.dx = -50 + -(8 * multiplier)
+    elseif self.x > paddleCenter
+        and STATE.current.paddle.dx > 0
+        and not self:hasSameDxAs(STATE.current.paddle) then
+        self.dx = 50 + (8 * math.abs(multiplier))
+    end
+end
+
+function Ball:hasSameDxAs(object)
+    return self.dx > 0 and object.dx > 0
+        or self.dx < 0 and object.dx < 0
 end
 
 function Ball:hitBricks()
@@ -96,10 +121,10 @@ function Ball:bounceOffBricks(brick)
     end
 
     if math.abs(self.dy) < 150 then
-        self.dy = self.dy * 1.3
+        self.dy = self.dy * 1.2
     end
 
     if self.dx == 0 then
-        self.dx = math.random(-20, 20)
+        self.dx = math.random(-50, 50)
     end
 end
