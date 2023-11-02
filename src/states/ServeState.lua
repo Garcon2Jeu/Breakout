@@ -2,6 +2,7 @@ ServeState = Class { __includes = BaseState }
 
 function ServeState:init()
     self.map = MapManager:factory()
+    self.player = PlayerStats()
 end
 
 function ServeState:update(dt)
@@ -16,7 +17,8 @@ end
 function ServeState:draw()
     self.paddle:draw()
     self.ball:draw()
-    MapManager:draw(self.map)
+    -- MapManager:draw(self.map)
+    self.player:draw()
 end
 
 function ServeState:enter(params)
