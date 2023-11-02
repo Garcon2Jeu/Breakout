@@ -5,12 +5,13 @@ function love.load()
     ASSETS = AssetManager()
 
     STATE = StateManager {
-        ["start"] = function() return StartState() end,
+        ["start"]        = function() return StartState() end,
         ["selectPaddle"] = function() return SelectPaddleState() end,
-        ["serve"] = function() return ServeState() end,
-        ["play"] = function() return PlayState() end,
-        ["victory"] = function() return VictoryState() end,
-        ["over"] = function() return OverState() end,
+        ["scoreBoard"]   = function() return ScoreBoardState() end,
+        ["serve"]        = function() return ServeState() end,
+        ["play"]         = function() return PlayState() end,
+        ["victory"]      = function() return VictoryState() end,
+        ["over"]         = function() return OverState() end,
     }
 
     STATE:change("start")
