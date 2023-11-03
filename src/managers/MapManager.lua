@@ -69,6 +69,12 @@ function MapManager:makeBrick(x, row, columns, column)
     )
 end
 
+function MapManager:update(dt, map)
+    for key, brick in pairs(map) do
+        brick:update(dt)
+    end
+end
+
 function MapManager:draw(map)
     for key, brick in pairs(map) do
         brick:draw()

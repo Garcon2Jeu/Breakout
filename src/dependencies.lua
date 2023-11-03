@@ -9,6 +9,7 @@ require "src.managers.AtlasManager"
 require "src.managers.StateManager"
 require "src.managers.MapManager"
 require "src.managers.FileManager"
+require "src.managers.ParticleManager"
 
 require "src.states.BaseState"
 require "src.states.StartState"

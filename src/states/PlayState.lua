@@ -8,6 +8,7 @@ function PlayState:enter(params)
 end
 
 function PlayState:update(dt)
+    MapManager:update(dt, self.map)
     self.paddle:update(dt)
     self.ball:update(dt)
 
