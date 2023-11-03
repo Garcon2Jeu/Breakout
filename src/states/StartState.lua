@@ -12,7 +12,7 @@ function StartState:update(dt)
     end
 
     if topChoice then
-        STATE:change("enterScore")
+        STATE:change("selectPaddle")
     else
         STATE:change("scoreBoard")
     end

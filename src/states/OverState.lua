@@ -20,6 +20,13 @@ function OverState:update(dt)
     if topChoice then
         STATE:change("start")
     end
+
+    if self.player:hasHighScore() then
+        STATE:change("enterScore", self.player.score)
+        return
+    end
+
+    STATE:change("scoreBoard")
 end
 
 function OverState:draw()
@@ -37,15 +44,15 @@ function OverState:draw()
         ASSETS.colors["setYellow"]()
     end
 
-    love.graphics.printf("Start Again", 0, CENTER_HEIGHT + 20, VIRTUAL_WIDTH, "center")
+    local string = self.player:hasHighScore() and "Enter High Score" or "Score Board"
+    love.graphics.printf(string, 0, CENTER_HEIGHT + 20, VIRTUAL_WIDTH, "center")
     ASSETS.colors["setWhite"]()
+
 
     if not topChoice then
         ASSETS.colors["setYellow"]()
     end
 
-    love.graphics.printf("Score Board", 0, CENTER_HEIGHT + 40, VIRTUAL_WIDTH, "center")
+    love.graphics.printf("Start Again", 0, CENTER_HEIGHT + 40, VIRTUAL_WIDTH, "center")
     ASSETS.colors["setWhite"]()
 end
-
-function OverState:exit() end

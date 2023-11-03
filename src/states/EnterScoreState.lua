@@ -5,16 +5,26 @@ function EnterScoreState:init()
     self.highlighted = 1
 end
 
+function EnterScoreState:enter(params)
+    self.score = params
+end
+
 function EnterScoreState:update(dt)
     self:selectLetter()
     self:selectChar()
 
     if APP:wasKeyPressed("return") then
+        local name = string.char(self.chars[1]) .. string.char(self.chars[2]) .. string.char(self.chars[3])
+        FileManager:replaceHighScore(name, self.score)
+
         STATE:change("scoreBoard")
     end
 end
 
 function EnterScoreState:draw()
+    ASSETS.fonts["setSmall"]()
+    love.graphics.printf("Enter name with arrow keys", 0, CENTER_HEIGHT - 70, VIRTUAL_WIDTH, "center")
+
     ASSETS.fonts["setLarge"]()
 
     if self.highlighted == 1 then
@@ -36,6 +46,9 @@ function EnterScoreState:draw()
     end
     love.graphics.printf(string.char(self.chars[3]), 0, CENTER_HEIGHT - 48, VIRTUAL_WIDTH + 40, "center")
     ASSETS.colors["setWhite"]()
+
+    ASSETS.fonts["setSmall"]()
+    love.graphics.printf("Press enter to confirm", 0, CENTER_HEIGHT, VIRTUAL_WIDTH, "center")
 end
 
 function EnterScoreState:selectLetter()

@@ -14,5 +14,5 @@ function ScoreBoardState:draw()
         y = y + 20
     end
     ASSETS.fonts["setSmall"]()
-    love.graphics.printf("Press Backspace to return", 0, y + 15, VIRTUAL_WIDTH, "center")
+    love.graphics.printf("Press Backspace to Title Screen", 0, y + 15, VIRTUAL_WIDTH, "center")
 end

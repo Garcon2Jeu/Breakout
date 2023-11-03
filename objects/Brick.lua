@@ -29,12 +29,12 @@ end
 
 function Brick:setSkin(skin)
     self.skin = skin
-    self.value = (self.skin + self.tier) * 100
+    self.value = (self.skin + self.tier) * 25
 end
 
 function Brick:setTier(tier)
     self.tier = tier
-    self.value = (self.skin + self.tier) * 100
+    self.value = (self.skin + self.tier) * 25
 end
 
 function Brick:destroy()

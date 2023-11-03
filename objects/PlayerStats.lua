@@ -45,3 +45,15 @@ end
 function PlayerStats:increaseLevel()
     self.level = self.level + 1
 end
+
+function PlayerStats:hasHighScore()
+    local highScores = FileManager:load()
+
+    for key, listing in pairs(highScores) do
+        if self.score > tonumber(listing.score) then
+            return true
+        end
+    end
+
+    return false
+end
