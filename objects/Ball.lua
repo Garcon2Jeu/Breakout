@@ -97,7 +97,8 @@ end
 function Ball:hitBricks()
     for key, brick in pairs(STATE.current.map) do
         if brick.inPlay and self.hitbox:hasCollided(brick.hitbox) then
-            brick:destroy()
+            STATE.current.player:addToScore(brick.value)
+            brick:hit()
             self:bounceOffBricks(brick)
 
             break
@@ -107,16 +108,16 @@ end
 
 function Ball:bounceOffBricks(brick)
     if self.hitbox.left + 2 < brick.hitbox.left and self.dx > 0 then
-        self.x = brick.x - ATLAS.balls[self.skin].width
+        self.x = brick.x - ATLAS.balls[self.skin].width - 2
         self.dx = -self.dx
     elseif self.hitbox.left + 6 > brick.hitbox.left + 32 and self.dx < 0 then
-        self.x = brick.x + ATLAS.bricks[brick.skin].width
+        self.x = brick.x + ATLAS.bricks[brick.skin].width + 2
         self.dx = -self.dx
     elseif self.hitbox.top < brick.hitbox.top then
-        self.y = brick.y - ATLAS.balls[self.skin].height
+        self.y = brick.y - ATLAS.balls[self.skin].height - 2
         self.dy = -self.dy
     else
-        self.y = brick.y + ATLAS.bricks[brick.skin].height
+        self.y = brick.y + ATLAS.bricks[brick.skin].height + 2
         self.dy = -self.dy
     end
 

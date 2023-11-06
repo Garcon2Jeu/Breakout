@@ -37,16 +37,36 @@ end
 
 function Brick:setSkin(skin)
     self.skin = skin
-    self.value = (self.skin + self.tier) * 25
+    self:updateValue()
 end
 
 function Brick:setTier(tier)
     self.tier = tier
+    self:updateValue()
+end
+
+function Brick:updateValue()
     self.value = (self.skin + self.tier) * 25
+end
+
+function Brick:hit()
+    if self.tier > 0 then
+        self.tier = self.tier - 1
+        return
+    else
+        self.tier = 0
+        self.skin = self.skin - 4
+    end
+
+    self:updateValue()
+
+    if self.skin < 1 and self.tier == 0 then
+        self.skin = 1
+        self:destroy()
+    end
 end
 
 function Brick:destroy()
     self.inPlay = false
-    STATE.current.player:addToScore(self.value)
     self.particles:emit(self.skin)
 end
