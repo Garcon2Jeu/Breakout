@@ -10,6 +10,7 @@ function love.load()
         ["scoreBoard"]   = function() return ScoreBoardState() end,
         ["serve"]        = function() return ServeState() end,
         ["play"]         = function() return PlayState() end,
+        ["pause"]        = function() return PauseState() end,
         ["victory"]      = function() return VictoryState() end,
         ["over"]         = function() return OverState() end,
         ["enterScore"]   = function() return EnterScoreState() end,
