@@ -38,7 +38,7 @@ end
 
 function SelectPaddleState:drawArrow(opaqueIndex, skin, xOffset)
     if paddleSkin == opaqueIndex then
-        ASSETS.colors["setSemiOpaque"]()
+        ASSETS.colors["setWhiteOpaque"]()
     end
 
     love.graphics.draw(ASSETS.graphics["arrows"], ATLAS.arrows[skin].quad, CENTER_WIDTH + xOffset, CENTER_HEIGHT - 5)

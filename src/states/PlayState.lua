@@ -26,6 +26,10 @@ function PlayState:update(dt)
     if self:checkVictory() then
         STATE:change("victory", self)
     end
+
+    if APP:wasKeyPressed("space") then
+        STATE:switchTo("pause", self)
+    end
 end
 
 function PlayState:draw()

@@ -1,11 +1,27 @@
 PauseState = Class { __includes = BaseState }
 
-function PauseState:init() end
+function PauseState:enter(params)
+    self.playState = params
+end
 
-function PauseState:update(dt) end
+function PauseState:update(dt)
+    if APP:wasKeyPressed("space") then
+        STATE:switchBack()
+    end
+end
 
-function PauseState:draw() end
+function PauseState:draw()
+    ASSETS.colors["setBlackOpaque"]()
+    love.graphics.rectangle("fill", 0, 0, VIRTUAL_WIDTH, VIRTUAL_HEIGHT)
 
-function PauseState:enter(params) end
+    ASSETS.colors["setWhiteOpaque"]()
+    self.playState:draw()
 
-function PauseState:exit() end
+    ASSETS.colors["setWhite"]()
+    ASSETS.fonts["setLarge"]()
+    love.graphics.printf("PAUSE", 0, CENTER_HEIGHT - 48, VIRTUAL_WIDTH, "center")
+
+    ASSETS.fonts["setMedium"]()
+    love.graphics.printf("Press Space to play", 0, CENTER_HEIGHT, VIRTUAL_WIDTH, "center")
+    ASSETS.fonts["setSmall"]()
+end

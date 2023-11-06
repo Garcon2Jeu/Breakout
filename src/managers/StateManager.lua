@@ -37,4 +37,5 @@ end
 function StateManager:switchBack()
     self.current:exit()
     self.current = self.placeholder
+    self.placeholder = nil
 end
