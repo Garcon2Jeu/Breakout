@@ -7,9 +7,9 @@ end
 
 function VictoryState:update(dt)
     if APP:wasKeyPressed("return") then
-        self.map = MapManager:factory()
-        self.ball = Ball()
         self.player:increaseLevel()
+        self.map = MapManager:factory(self.player)
+        self.ball = Ball()
 
         STATE:change("serve", self)
     end

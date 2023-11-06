@@ -2,32 +2,26 @@ MapManager = Class {}
 
 local maxRows = 5
 local maxColumns = 13
-local minRows = 1
+local minRows = 3
 local minColumns = 7
 
 local skins = { 1, 5, 9, 13, 17 }
 
-function MapManager:factory(highestSkin, highestTier, lowestSkin, lowestTier)
+function MapManager:factory(player)
     local map = {}
 
-    local rows = 5
-    local columns = 13
-    columns = columns % 2 == 0 and columns + 1 or columns
-
-    local highestSkin = highestSkin or 1
-    local highestTier = highestTier or 0
-    local lowestSkin = lowestSkin or 1
-    local lowestTier = lowestTier or 0
-
-    local solidSkin = 2
-    local solidTier = 0
+    local rows = player.maxRows
+    local columns = player.maxColumns
 
     for column = 1, rows do
-        local skipRow = APP:flipCoin()
-        local skipColumn = APP:flipCoin()
+        local skipRow = APP:flipCoin(1, 2)
+        local skipColumn = APP:flipCoin(1, 2)
 
-        local alternatePattern = APP:flipCoin()
-        local alternateBrick = APP:flipCoin()
+        local alternatePattern = APP:flipCoin(1, 2)
+        local alternateBrick = APP:flipCoin(1, 2)
+
+        local solidSkin = math.random(player.lowestSkin, player.highestSkin)
+        local solidTier = math.random(player.lowestTier, player.highestTier)
 
         for row = 1, columns do
             if skipRow and skipColumn then
@@ -38,19 +32,19 @@ function MapManager:factory(highestSkin, highestTier, lowestSkin, lowestTier)
             end
 
             local brick = self:makeBrick(8, row - 1, columns, column)
-            brick:setSkin(skins[lowestSkin])
-            brick:setTier(lowestTier)
+
+            brick:setSkin(player.lowestSkin)
+            brick:setTier(player.highestTier)
 
             if alternatePattern and alternateBrick then
-                brick:setSkin(skins[highestSkin])
-                brick:setTier(highestTier)
-                alternateBrick = not alternateBrick
-            else
-                alternateBrick = not alternateBrick
+                brick:setSkin(player.highestSkin)
+                brick:setTier(0)
             end
 
+            alternateBrick = not alternateBrick
+
             if not alternatePattern then
-                brick:setSkin(skins[solidSkin])
+                brick:setSkin(solidSkin)
                 brick:setTier(solidTier)
             end
 

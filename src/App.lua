@@ -54,6 +54,6 @@ function App:slice(tbl, first, last, step)
     return sliced
 end
 
-function App:flipCoin()
-    return math.random(1, 2) == 1 and true or false
+function App:flipCoin(low, high)
+    return math.random(low, high) == 1 and true or false
 end

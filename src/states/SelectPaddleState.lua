@@ -13,9 +13,9 @@ function SelectPaddleState:update(dt)
 
     if APP:wasKeyPressed("return") then
         self.paddle = Paddle(paddleSkin)
-        self.ball = Ball()
-        self.map = MapManager:factory()
+        self.ball   = Ball()
         self.player = PlayerStats()
+        self.map    = MapManager:factory(self.player)
 
         STATE:change("serve", self)
     end
