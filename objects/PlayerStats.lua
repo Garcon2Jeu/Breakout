@@ -1,10 +1,12 @@
 PlayerStats = Class {}
 
 local maxHearts = 3
+local energyMax = 500
 
 function PlayerStats:init()
     self.score  = 0
     self.hearts = 3
+    self.energy = 0
 
 
     self.level       = 1
@@ -18,7 +20,9 @@ function PlayerStats:init()
     self.lowestTier  = 0
 end
 
-function PlayerStats:update(dt) end
+function PlayerStats:update(dt)
+    self:recoverHeart()
+end
 
 function PlayerStats:draw()
     love.graphics.print("Level " .. tostring(self.level), 10, 6)
@@ -46,6 +50,7 @@ end
 
 function PlayerStats:addToScore(value)
     self.score = self.score + value
+    self.energy = self.energy + value
 end
 
 function PlayerStats:removeHeart()
@@ -93,4 +98,11 @@ function PlayerStats:hasHighScore()
     end
 
     return false
+end
+
+function PlayerStats:recoverHeart()
+    if self.energy >= energyMax then
+        self.energy = self.energy - energyMax
+        self.hearts = self.hearts > 3 and 3 or self.hearts + 1
+    end
 end

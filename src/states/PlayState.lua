@@ -11,6 +11,7 @@ function PlayState:update(dt)
     MapManager:update(dt, self.map)
     self.paddle:update(dt)
     self.ball:update(dt)
+    self.player:update(dt)
 
     if self.ball:isLost() then
         self.player:removeHeart()
