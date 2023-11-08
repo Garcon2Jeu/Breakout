@@ -10,12 +10,15 @@ end
 
 function OverState:update(dt)
     if APP:wasKeyPressed("up") or APP:wasKeyPressed("down") then
+        ASSETS.audio["select"]:play()
         topChoice = not topChoice
     end
 
     if not APP:wasKeyPressed("return") then
         return
     end
+
+    ASSETS.audio["confirm"]:play()
 
     if topChoice then
         STATE:change("start")

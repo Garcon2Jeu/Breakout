@@ -15,6 +15,7 @@ function EnterScoreState:update(dt)
 
     if APP:wasKeyPressed("return") then
         local name = string.char(self.chars[1]) .. string.char(self.chars[2]) .. string.char(self.chars[3])
+        ASSETS.audio["confirm"]:play()
         FileManager:replaceHighScore(name, self.score)
 
         STATE:change("scoreBoard")
@@ -54,15 +55,19 @@ end
 function EnterScoreState:selectLetter()
     if APP:wasKeyPressed("right") then
         self.highlighted = self.highlighted + 1 > 3 and 1 or self.highlighted + 1
+        ASSETS.audio["select"]:play()
     elseif APP:wasKeyPressed("left") then
         self.highlighted = self.highlighted - 1 < 1 and 3 or self.highlighted - 1
+        ASSETS.audio["select"]:play()
     end
 end
 
 function EnterScoreState:selectChar()
     if APP:wasKeyPressed("down") then
         self.chars[self.highlighted] = self.chars[self.highlighted] + 1 > 90 and 65 or self.chars[self.highlighted] + 1
+        ASSETS.audio["select"]:play()
     elseif APP:wasKeyPressed("up") then
         self.chars[self.highlighted] = self.chars[self.highlighted] - 1 < 65 and 90 or self.chars[self.highlighted] - 1
+        ASSETS.audio["select"]:play()
     end
 end

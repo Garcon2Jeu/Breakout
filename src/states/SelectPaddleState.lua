@@ -5,19 +5,33 @@ local paddleSkin = 2
 
 
 function SelectPaddleState:update(dt)
-    if APP:wasKeyPressed("right") then
-        paddleSkin = paddleSkin + 4 > #ATLAS.paddles - 2 and paddleSkin or paddleSkin + 4
-    elseif APP:wasKeyPressed("left") then
-        paddleSkin = paddleSkin - 4 < 2 and paddleSkin or paddleSkin - 4
-    end
-
+    self:select()
     if APP:wasKeyPressed("return") then
+        ASSETS.audio["confirm"]:play()
         self.paddle = Paddle(paddleSkin)
         self.ball   = Ball()
         self.player = PlayerStats()
         self.map    = MapManager:factory(self.player)
 
         STATE:change("serve", self)
+    end
+end
+
+function SelectPaddleState:select()
+    if APP:wasKeyPressed("right") then
+        if paddleSkin + 4 > #ATLAS.paddles - 2 then
+            ASSETS.audio["no_select"]:play()
+        else
+            paddleSkin = paddleSkin + 4
+            ASSETS.audio["select"]:play()
+        end
+    elseif APP:wasKeyPressed("left") then
+        if paddleSkin - 4 < 2 then
+            ASSETS.audio["no_select"]:play()
+        else
+            paddleSkin = paddleSkin - 4
+            ASSETS.audio["select"]:play()
+        end
     end
 end
 

@@ -1,7 +1,8 @@
 ScoreBoardState = Class { __includes = BaseState }
 
 function ScoreBoardState:update(dt)
-    if APP:wasKeyPressed("backspace") then
+    if APP:wasKeyPressed("return") then
+        ASSETS.audio["confirm"]:play()
         STATE:change("start")
     end
 end
@@ -14,5 +15,5 @@ function ScoreBoardState:draw()
         y = y + 20
     end
     ASSETS.fonts["setSmall"]()
-    love.graphics.printf("Press Backspace to Title Screen", 0, y + 15, VIRTUAL_WIDTH, "center")
+    love.graphics.printf("Press Enter to Title Screen", 0, y + 15, VIRTUAL_WIDTH, "center")
 end

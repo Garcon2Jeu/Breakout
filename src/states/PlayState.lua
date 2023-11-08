@@ -14,6 +14,7 @@ function PlayState:update(dt)
     self.player:update(dt)
 
     if self.ball:isLost() then
+        ASSETS.audio["hurt"]:play()
         self.player:removeHeart()
         self.ball = Ball()
 
@@ -25,10 +26,12 @@ function PlayState:update(dt)
     end
 
     if self:checkVictory() then
+        ASSETS.audio["victory"]:play()
         STATE:change("victory", self)
     end
 
     if APP:wasKeyPressed("space") then
+        ASSETS.audio["pause"]:play()
         STATE:switchTo("pause", self)
     end
 end

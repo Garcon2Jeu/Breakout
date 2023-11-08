@@ -7,6 +7,8 @@ end
 
 function VictoryState:update(dt)
     if APP:wasKeyPressed("return") then
+        ASSETS.audio["confirm"]:play()
+
         self.player:increaseLevel()
         self.map = MapManager:factory(self.player)
         self.ball = Ball()

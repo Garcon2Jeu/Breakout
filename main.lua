@@ -2,7 +2,12 @@ require 'src.dependencies'
 
 function love.load()
     APP = App()
+
     ASSETS = AssetManager()
+    ASSETS.audio["music"]:play()
+    ASSETS.audio["music"]:setLooping(true)
+
+    ATLAS = AtlasManager()
 
     STATE = StateManager {
         ["start"]        = function() return StartState() end,
@@ -17,8 +22,6 @@ function love.load()
     }
 
     STATE:change("start")
-
-    ATLAS = AtlasManager()
 end
 
 function love.update(dt)

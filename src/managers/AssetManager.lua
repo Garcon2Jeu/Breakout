@@ -26,6 +26,7 @@ function AssetManager:getAudio()
         ["recover"]     = love.audio.newSource("assets/audio/recover.wav", "static"),
         ["score"]       = love.audio.newSource("assets/audio/score.wav", "static"),
         ["select"]      = love.audio.newSource("assets/audio/select.wav", "static"),
+        ["serve"]       = love.audio.newSource("assets/audio/serve.wav", "static"),
         ["victory"]     = love.audio.newSource("assets/audio/victory.wav", "static"),
         ["wall_hit"]    = love.audio.newSource("assets/audio/wall_hit.wav", "static")
     }

@@ -43,18 +43,21 @@ function Ball:clamp()
     if self.dy < 0 and self.y <= 0 then
         self.y = 0
         self.dy = -self.dy * .9
+        ASSETS.audio["wall_hit"]:play()
         return
     end
 
     if self.dx < 0 and self.x <= 0 then
         self.x = 0
         self.dx = -self.dx * .9
+        ASSETS.audio["wall_hit"]:play()
         return
     end
 
     if self.dx > 0 and self.x + ATLAS.balls[self.skin].width >= VIRTUAL_WIDTH then
         self.x = VIRTUAL_WIDTH - ATLAS.balls[self.skin].width
         self.dx = -self.dx * .9
+        ASSETS.audio["wall_hit"]:play()
         return
     end
 end
@@ -69,6 +72,8 @@ function Ball:bounceOffPaddle()
     if not self.hitbox:hasCollided(STATE.current.paddle.hitbox) then
         return
     end
+
+    ASSETS.audio["paddle_hit"]:play()
 
     self.y = STATE.current.paddle.y - ATLAS.balls[self.skin].height
     self.dy = -self.dy

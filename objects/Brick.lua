@@ -50,6 +50,8 @@ function Brick:updateValue()
 end
 
 function Brick:hit()
+    ASSETS.audio["brick_hit_2"]:play()
+
     if self.tier > 0 then
         self.tier = self.tier - 1
         return
@@ -67,6 +69,7 @@ function Brick:hit()
 end
 
 function Brick:destroy()
+    ASSETS.audio["brick_hit_1"]:play()
     self.inPlay = false
     self.particles:emit(self.skin)
 end

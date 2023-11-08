@@ -5,11 +5,14 @@ local topChoice = true
 function StartState:update(dt)
     if APP:wasKeyPressed("up") or APP:wasKeyPressed("down") then
         topChoice = not topChoice
+        ASSETS.audio["select"]:play()
     end
 
     if not APP:wasKeyPressed("return") then
         return
     end
+
+    ASSETS.audio["confirm"]:play()
 
     if topChoice then
         STATE:change("selectPaddle")

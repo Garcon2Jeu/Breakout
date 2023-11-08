@@ -12,6 +12,7 @@ function ServeState:update(dt)
     self.ball:followPaddle(self.paddle.skin)
 
     if APP:wasKeyPressed("space") then
+        ASSETS.audio["serve"]:play()
         STATE:change("play", self)
     end
 end

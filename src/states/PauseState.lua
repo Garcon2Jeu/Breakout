@@ -6,6 +6,7 @@ end
 
 function PauseState:update(dt)
     if APP:wasKeyPressed("space") then
+        ASSETS.audio["pause"]:play()
         STATE:switchBack()
     end
 end
