@@ -4,8 +4,8 @@ function PowerUpManager:init()
     self.inPlay = {}
 end
 
-function PowerUpManager:spawn(x, y)
-    table.insert(self.inPlay, PowerUp(9, x, y))
+function PowerUpManager:spawn(x, y, skin)
+    table.insert(self.inPlay, PowerUp(skin, x, y))
 end
 
 function PowerUpManager:update(dt)

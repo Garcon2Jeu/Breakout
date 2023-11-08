@@ -10,10 +10,7 @@ local skins = { 1, 5, 9, 13, 17 }
 function MapManager:factory(player)
     local map = {}
 
-    local rows = player.maxRows
-    local columns = player.maxColumns
-
-    for column = 1, rows do
+    for column = 1, player.maxRows do
         local skipRow = APP:flipCoin(1, 2)
         local skipColumn = APP:flipCoin(1, 2)
 
@@ -23,7 +20,7 @@ function MapManager:factory(player)
         local solidSkin = math.random(player.lowestSkin, player.highestSkin)
         local solidTier = math.random(player.lowestTier, player.highestTier)
 
-        for row = 1, columns do
+        for row = 1, player.maxColumns do
             if skipRow and skipColumn then
                 skipColumn = not skipColumn
                 goto continue
@@ -31,7 +28,7 @@ function MapManager:factory(player)
                 skipColumn = not skipColumn
             end
 
-            local brick = self:makeBrick(8, row - 1, columns, column)
+            local brick = self:makeBrick(8, row - 1, player.maxColumns, column)
 
             brick:setSkin(player.lowestSkin)
             brick:setTier(player.highestTier)
@@ -53,6 +50,8 @@ function MapManager:factory(player)
         end
     end
 
+    map = self:insertPowerUps(map)
+
     return map
 end
 
@@ -73,4 +72,27 @@ function MapManager:draw(map)
     for key, brick in pairs(map) do
         brick:draw()
     end
+end
+
+function MapManager:insertPowerUps(map, ball, paddle)
+    local ballPowerUp = ball or false
+    local paddlePowerUp = paddle or false
+
+    for index, brick in ipairs(map) do
+        if not brick.powerUp and math.random(1, #map) == index then
+            if not ballPowerUp then
+                brick.powerUp = 9
+                ballPowerUp = true
+            else
+                brick.powerUp = 5
+                paddlePowerUp = true
+            end
+        end
+    end
+
+    if not ballPowerUp or not paddlePowerUp then
+        self:insertPowerUps(map, ballPowerUp, paddlePowerUp)
+    end
+
+    return map
 end

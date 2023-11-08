@@ -1,6 +1,6 @@
 Brick = Class {}
 
-function Brick:init(x, y, skin)
+function Brick:init(x, y, skin, powerUp)
     self.skin = skin or 1
     self.tier = 0
     self.x = x
@@ -10,6 +10,7 @@ function Brick:init(x, y, skin)
 
     self.inPlay = true
     self.particles = ParticleManager()
+    self.powerUp = powerUp or nil
 end
 
 function Brick:update(dt)
@@ -52,10 +53,13 @@ end
 function Brick:hit()
     ASSETS.audio["brick_hit_2"]:play()
 
-    STATE.current.powerUps:spawn(
-        self.x + (ATLAS.bricks[self.skin].width / 2),
-        self.y + (ATLAS.bricks[self.skin].height / 2)
-    )
+    if self.powerUp then
+        STATE.current.powerUps:spawn(
+            self.x + (ATLAS.bricks[self.skin].width / 2),
+            self.y + (ATLAS.bricks[self.skin].height / 2),
+            self.powerUp
+        )
+    end
 
     if self.tier > 0 then
         self.tier = self.tier - 1
