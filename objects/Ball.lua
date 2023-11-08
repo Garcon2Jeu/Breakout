@@ -2,15 +2,14 @@ Ball = Class {}
 
 local SPEED = 75
 
-function Ball:init(skin)
+function Ball:init(skin, x, y)
     self.skin = skin or 1
-    self.x = 0
-    self.y = STATE.current.paddle.y - 25
+    self.x = x or 0
+    self.y = y or STATE.current.paddle.y - 25
     self.dx = 0
     self.dy = -50
     self.hitbox = Hitbox(self.x, self.y,
         ATLAS.balls[self.skin].width + 2, ATLAS.balls[self.skin].height + 2)
-    self.inPlay = true
 end
 
 function Ball:update(dt)
@@ -29,11 +28,6 @@ function Ball:draw()
     ------------------------------------------------------DEBUG-------------------------------------------------------------------
     -- self.hitbox:draw()
     ------------------------------------------------------DEBUG-------------------------------------------------------------------
-end
-
-function Ball:followPaddle(paddleSkin)
-    self.x = STATE.current.paddle.x + ATLAS.paddles[paddleSkin].width / 2
-        - ATLAS.balls[self.skin].width / 2
 end
 
 function Ball:move(dt)
@@ -65,10 +59,7 @@ function Ball:clamp()
 end
 
 function Ball:isLost()
-    if self.dy > 0 and self.y + ATLAS.balls[self.skin].width >= VIRTUAL_HEIGHT then
-        self.inPlay = false
-        STATE.current.paddle:downgrade()
-    end
+    return self.dy > 0 and self.y >= VIRTUAL_HEIGHT
 end
 
 function Ball:bounceOffPaddle()

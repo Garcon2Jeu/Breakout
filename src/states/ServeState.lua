@@ -9,7 +9,7 @@ end
 
 function ServeState:update(dt)
     self.paddle:update(dt)
-    self.balls[1]:followPaddle(self.paddle.skin)
+    self.balls:followPaddle(self.paddle.skin)
 
     if APP:wasKeyPressed("space") then
         ASSETS.audio["serve"]:play()
@@ -19,9 +19,7 @@ end
 
 function ServeState:draw()
     self.paddle:draw()
-    self.balls[1]:draw()
+    self.balls:draw()
     MapManager:draw(self.map)
     self.player:draw()
 end
-
-function ServeState:exit() end

@@ -12,18 +12,14 @@ end
 function PlayState:update(dt)
     MapManager:update(dt, self.map)
     self.paddle:update(dt)
-
-    for key, ball in pairs(self.balls) do
-        ball:update(dt)
-    end
-
+    self.balls:update(dt)
     self.player:update(dt)
     self.powerUps:update(dt)
 
-    if not self:ballsInPlay() then
+    if self.balls:allLost() then
         ASSETS.audio["hurt"]:play()
         self.player:removeHeart()
-        self.balls = { Ball() }
+        self.balls = BallManager()
 
         STATE:change("serve", self)
     end
@@ -46,11 +42,7 @@ end
 function PlayState:draw()
     MapManager:draw(self.map)
     self.paddle:draw()
-
-    for key, ball in pairs(self.balls) do
-        ball:draw()
-    end
-
+    self.balls:draw()
     self.player:draw()
     self.powerUps:draw()
 end
@@ -65,12 +57,19 @@ function PlayState:checkVictory()
     return true
 end
 
-function PlayState:ballsInPlay()
-    for key, ball in pairs(self.balls) do
-        if ball.inPlay then
-            return true
-        end
-    end
+-- function PlayState:ballsInPlay()
+--     for key, ball in pairs(self.balls) do
+--         if not ball.inPlay then
+--             table.remove(self.balls, key)
+--             return false
+--         end
+--     end
 
-    return false
-end
+--     return true
+-- end
+
+-- function PlayState:multiplyBall(amount)
+--     for i = 0, amount do
+--         table.insert(self.balls, Ball(1, self.balls[1].x, self.balls[1].y))
+--     end
+-- end

@@ -11,6 +11,7 @@ require "src.managers.MapManager"
 require "src.managers.FileManager"
 require "src.managers.ParticleManager"
 require "src.managers.PowerUpManager"
+require "src.managers.BallManager"
 
 require "src.states.BaseState"
 require "src.states.StartState"

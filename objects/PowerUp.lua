@@ -4,6 +4,8 @@ local GRAVITY = 50
 
 function PowerUp:init(skin, x, y)
     self.skin   = skin
+    self.power  = nil
+
     self.x      = x - (ATLAS.powerUps[5].width / 2)
     self.y      = y - (ATLAS.powerUps[5].height / 2)
     self.hitbox = Hitbox(
@@ -24,4 +26,14 @@ function PowerUp:draw()
     ------------------------------------------------------DEBUG-------------------------------------------------------------------
     self.hitbox:draw()
     ------------------------------------------------------DEBUG-------------------------------------------------------------------
+end
+
+function PowerUp:getPower()
+    if self.skin == 5 then
+        return function() return STATE.current.paddle:upgrade() end
+    end
+
+    if self.skin == 9 then
+        return function() return STATE.current.balls:multiply(2) end
+    end
 end
