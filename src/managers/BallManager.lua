@@ -40,7 +40,14 @@ function BallManager:allLost()
 end
 
 function BallManager:multiply(amount)
-    for i = 0, amount do
-        table.insert(self.inPlay, Ball(1, self.inPlay[1].x, self.inPlay[1].y))
+    for i = 1, amount do
+        table.insert(self.inPlay,
+            Ball(
+                1,
+                self.inPlay[1].x,
+                self.inPlay[1].y,
+                self.inPlay[1].dx + math.random(-20, 20)
+            )
+        )
     end
 end

@@ -2,12 +2,12 @@ Ball = Class {}
 
 local SPEED = 75
 
-function Ball:init(skin, x, y)
-    self.skin = skin or 1
-    self.x = x or 0
-    self.y = y or STATE.current.paddle.y - 25
-    self.dx = 0
-    self.dy = -50
+function Ball:init(skin, x, y, dx)
+    self.skin   = skin or 1
+    self.x      = x or 0
+    self.y      = y or STATE.current.paddle.y - 25
+    self.dx     = dx or 0
+    self.dy     = -50
     self.hitbox = Hitbox(self.x, self.y,
         ATLAS.balls[self.skin].width + 2, ATLAS.balls[self.skin].height + 2)
 end

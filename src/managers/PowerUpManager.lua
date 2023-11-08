@@ -5,7 +5,7 @@ function PowerUpManager:init()
 end
 
 function PowerUpManager:spawn(x, y)
-    table.insert(self.inPlay, PowerUp(5, x, y))
+    table.insert(self.inPlay, PowerUp(9, x, y))
 end
 
 function PowerUpManager:update(dt)
@@ -15,7 +15,7 @@ function PowerUpManager:update(dt)
 
     self:updatePowerUps(dt)
     self:addPowerUp()
-    self:remove()
+    self:lose()
 end
 
 function PowerUpManager:draw()
@@ -37,16 +37,13 @@ end
 function PowerUpManager:addPowerUp()
     for index, powerUp in ipairs(self.inPlay) do
         if powerUp.hitbox:hasCollided(STATE.current.paddle.hitbox) then
-            powerUp.power = powerUp:getPower()
-            powerUp.power()
-            powerUp.power = nil
-
-            self.inPlay[index] = nil
+            powerUp:usePower()
+            table.remove(self.inPlay, index)
         end
     end
 end
 
-function PowerUpManager:remove()
+function PowerUpManager:lose()
     for index, powerUp in ipairs(self.inPlay) do
         if powerUp.y > VIRTUAL_HEIGHT then
             table.remove(self.inPlay, index)

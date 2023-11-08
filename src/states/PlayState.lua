@@ -56,20 +56,3 @@ function PlayState:checkVictory()
 
     return true
 end
-
--- function PlayState:ballsInPlay()
---     for key, ball in pairs(self.balls) do
---         if not ball.inPlay then
---             table.remove(self.balls, key)
---             return false
---         end
---     end
-
---     return true
--- end
-
--- function PlayState:multiplyBall(amount)
---     for i = 0, amount do
---         table.insert(self.balls, Ball(1, self.balls[1].x, self.balls[1].y))
---     end
--- end
