@@ -1,12 +1,12 @@
 PlayerStats = Class {}
 
 local maxHearts = 3
-local energyMax = 500
 
 function PlayerStats:init()
-    self.score  = 0
-    self.hearts = 3
-    self.energy = 0
+    self.score     = 0
+    self.hearts    = 3
+    self.energy    = 0
+    self.energyMax = 1000
 
 
     self.level       = 1
@@ -28,6 +28,22 @@ function PlayerStats:draw()
     love.graphics.print("Level " .. tostring(self.level), 10, 6)
     self:drawHearts()
     self:drawScore()
+    self:drawEnergyBar()
+end
+
+function PlayerStats:drawEnergyBar()
+    local width     = 100
+    local height    = 6
+    local x         = CENTER_WIDTH - (width / 2)
+    local y         = 4
+
+    local fillWidth = self.energy * (width / self.energyMax)
+
+    ASSETS.colors["setGreen"]()
+    love.graphics.rectangle("fill", x, y, fillWidth, height)
+
+    ASSETS.colors["setBlack"]()
+    love.graphics.rectangle("line", x, y, width, height)
 end
 
 function PlayerStats:drawHearts()
@@ -57,8 +73,22 @@ function PlayerStats:removeHeart()
     self.hearts = self.hearts - 1
 end
 
+function PlayerStats:recoverHeart()
+    if self.energy < self.energyMax then
+        return
+    end
+
+    self.energy = self.energy - self.energyMax
+    self.hearts = self.hearts + 1 > 3 and 3 or self.hearts + 1
+
+    if self.hearts == 3 then
+        self:addToScore(200)
+    end
+end
+
 function PlayerStats:increaseLevel()
     self.level      = self.level + 1
+    self.energyMax  = self.energyMax + 250
     self.maxColumns = self.maxColumns + 2
 
     if self.maxColumns > 13 then
@@ -98,11 +128,4 @@ function PlayerStats:hasHighScore()
     end
 
     return false
-end
-
-function PlayerStats:recoverHeart()
-    if self.energy >= energyMax then
-        self.energy = self.energy - energyMax
-        self.hearts = self.hearts > 3 and 3 or self.hearts + 1
-    end
 end
