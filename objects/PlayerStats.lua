@@ -44,6 +44,8 @@ function PlayerStats:drawEnergyBar()
 
     ASSETS.colors["setBlack"]()
     love.graphics.rectangle("line", x, y, width, height)
+
+    ASSETS.colors["setWhite"]()
 end
 
 function PlayerStats:drawHearts()

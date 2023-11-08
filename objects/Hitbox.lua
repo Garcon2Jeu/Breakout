@@ -10,7 +10,10 @@ function Hitbox:init(x, y, width, height)
     self.bottom = y + self.height
 end
 
-function Hitbox:update(x, y)
+function Hitbox:update(x, y, width, height)
+    self.width  = width or self.width
+    self.height = height or self.height
+
     self.left   = x
     self.right  = x + self.width
     self.top    = y

@@ -1,10 +1,12 @@
 PlayState = Class { __includes = BaseState }
 
 function PlayState:enter(params)
-    self.paddle = params.paddle
-    self.balls  = params.balls
-    self.map    = params.map
-    self.player = params.player
+    self.paddle   = params.paddle
+    self.balls    = params.balls
+    self.map      = params.map
+    self.player   = params.player
+
+    self.powerUps = PowerUpManager()
 end
 
 function PlayState:update(dt)
@@ -16,6 +18,7 @@ function PlayState:update(dt)
     end
 
     self.player:update(dt)
+    self.powerUps:update(dt)
 
     if not self:ballsInPlay() then
         ASSETS.audio["hurt"]:play()
@@ -49,6 +52,7 @@ function PlayState:draw()
     end
 
     self.player:draw()
+    self.powerUps:draw()
 end
 
 function PlayState:checkVictory()

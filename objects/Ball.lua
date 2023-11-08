@@ -67,6 +67,7 @@ end
 function Ball:isLost()
     if self.dy > 0 and self.y + ATLAS.balls[self.skin].width >= VIRTUAL_HEIGHT then
         self.inPlay = false
+        STATE.current.paddle:downgrade()
     end
 end
 
