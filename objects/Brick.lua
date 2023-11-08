@@ -53,14 +53,6 @@ end
 function Brick:hit()
     ASSETS.audio["brick_hit_2"]:play()
 
-    if self.powerUp then
-        STATE.current.powerUps:spawn(
-            self.x + (ATLAS.bricks[self.skin].width / 2),
-            self.y + (ATLAS.bricks[self.skin].height / 2),
-            self.powerUp
-        )
-    end
-
     if self.tier > 0 then
         self.tier = self.tier - 1
         return
@@ -74,6 +66,14 @@ function Brick:hit()
     if self.skin < 1 and self.tier == 0 then
         self.skin = 1
         self:destroy()
+
+        if self.powerUp then
+            STATE.current.powerUps:spawn(
+                self.x + (ATLAS.bricks[self.skin].width / 2),
+                self.y + (ATLAS.bricks[self.skin].height / 2),
+                self.powerUp
+            )
+        end
     end
 end
 

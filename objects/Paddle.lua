@@ -59,7 +59,7 @@ function Paddle:upgrade()
 end
 
 function Paddle:downgrade()
-    if not self.skin == 0 then
+    if self.skin > 1 then
         self.skin = self.skin - 1
         self.x = self.x + upgradeOffset
     end

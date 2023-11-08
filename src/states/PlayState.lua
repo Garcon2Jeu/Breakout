@@ -20,6 +20,7 @@ function PlayState:update(dt)
         ASSETS.audio["hurt"]:play()
         self.player:removeHeart()
         self.balls = BallManager()
+        self.paddle:downgrade()
 
         STATE:change("serve", self)
     end

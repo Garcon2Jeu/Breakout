@@ -11,7 +11,7 @@ function VictoryState:update(dt)
 
         self.player:increaseLevel()
         self.map = MapManager:factory(self.player)
-        self.ball = Ball()
+        self.balls = BallManager()
 
         STATE:change("serve", self)
     end
