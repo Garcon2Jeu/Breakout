@@ -9,7 +9,7 @@ function SelectPaddleState:update(dt)
     if APP:wasKeyPressed("return") then
         ASSETS.audio["confirm"]:play()
         self.paddle = Paddle(paddleSkin)
-        self.ball   = Ball()
+        self.balls  = { Ball() }
         self.player = PlayerStats()
         self.map    = MapManager:factory(self.player)
 

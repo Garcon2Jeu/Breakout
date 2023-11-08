@@ -10,6 +10,7 @@ function Ball:init(skin)
     self.dy = -50
     self.hitbox = Hitbox(self.x, self.y,
         ATLAS.balls[self.skin].width + 2, ATLAS.balls[self.skin].height + 2)
+    self.inPlay = true
 end
 
 function Ball:update(dt)
@@ -18,6 +19,7 @@ function Ball:update(dt)
     self:clamp()
     self:bounceOffPaddle()
     self:hitBricks()
+    self:isLost()
 end
 
 function Ball:draw()
@@ -64,7 +66,7 @@ end
 
 function Ball:isLost()
     if self.dy > 0 and self.y + ATLAS.balls[self.skin].width >= VIRTUAL_HEIGHT then
-        return true
+        self.inPlay = false
     end
 end
 

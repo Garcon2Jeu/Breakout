@@ -4,8 +4,8 @@ function love.load()
     APP = App()
 
     ASSETS = AssetManager()
-    ASSETS.audio["music"]:play()
-    ASSETS.audio["music"]:setLooping(true)
+    -- ASSETS.audio["music"]:play()
+    -- ASSETS.audio["music"]:setLooping(true)
 
     ATLAS = AtlasManager()
 

@@ -2,7 +2,7 @@ PlayState = Class { __includes = BaseState }
 
 function PlayState:enter(params)
     self.paddle = params.paddle
-    self.ball   = params.ball
+    self.balls  = params.balls
     self.map    = params.map
     self.player = params.player
 end
@@ -10,13 +10,17 @@ end
 function PlayState:update(dt)
     MapManager:update(dt, self.map)
     self.paddle:update(dt)
-    self.ball:update(dt)
+
+    for key, ball in pairs(self.balls) do
+        ball:update(dt)
+    end
+
     self.player:update(dt)
 
-    if self.ball:isLost() then
+    if not self:ballsInPlay() then
         ASSETS.audio["hurt"]:play()
         self.player:removeHeart()
-        self.ball = Ball()
+        self.balls = { Ball() }
 
         STATE:change("serve", self)
     end
@@ -39,11 +43,13 @@ end
 function PlayState:draw()
     MapManager:draw(self.map)
     self.paddle:draw()
-    self.ball:draw()
+
+    for key, ball in pairs(self.balls) do
+        ball:draw()
+    end
+
     self.player:draw()
 end
-
-function PlayState:exit() end
 
 function PlayState:checkVictory()
     for key, brick in pairs(self.map) do
@@ -53,4 +59,14 @@ function PlayState:checkVictory()
     end
 
     return true
+end
+
+function PlayState:ballsInPlay()
+    for key, ball in pairs(self.balls) do
+        if ball.inPlay then
+            return true
+        end
+    end
+
+    return false
 end
