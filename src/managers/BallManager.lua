@@ -20,8 +20,8 @@ function BallManager:draw()
 end
 
 function BallManager:followPaddle(paddleSkin)
-    self.inPlay[1].x = STATE.current.paddle.x + ATLAS.paddles[paddleSkin].width / 2
-        - ATLAS.balls[self.inPlay[1].skin].width / 2
+    self.inPlay[1].x = STATE.current.paddle.x + ATLAS.paddles[paddleSkin]["width"] / 2
+        - ATLAS.balls[self.inPlay[1].skin]["width"] / 2
 end
 
 function BallManager:remove()

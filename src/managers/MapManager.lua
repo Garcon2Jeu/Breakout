@@ -57,7 +57,7 @@ end
 
 function MapManager:makeBrick(x, row, columns, column)
     return Brick(
-        x + (row * ATLAS.bricks[1].width) + (maxColumns - columns) * ATLAS.bricks[1].width / 2,
+        x + (row * ATLAS.bricks[1]["width"]) + (maxColumns - columns) * ATLAS.bricks[1]["width"] / 2,
         (column) * 16
     )
 end

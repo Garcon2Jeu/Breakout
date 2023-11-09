@@ -87,7 +87,7 @@ function SelectPaddleState:drawArrow(objectSkin, opaqueIndex, arrowSkin, xOffset
         ASSETS.colors["setWhiteOpaque"]()
     end
 
-    love.graphics.draw(ASSETS.graphics["arrows"], ATLAS.arrows[arrowSkin].quad, CENTER_WIDTH + xOffset, y)
+    love.graphics.draw(ASSETS.graphics["arrows"], ATLAS.arrows[arrowSkin]["quad"], CENTER_WIDTH + xOffset, y)
     ASSETS.colors["setWhite"]()
 end
 

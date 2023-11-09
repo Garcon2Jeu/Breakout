@@ -6,12 +6,12 @@ local upgradeOffset = 16
 function Paddle:init(skin)
     self.originalSkin = skin
     self.skin         = skin
-    self.x            = CENTER_WIDTH - ATLAS.paddles[self.skin].width / 2
+    self.x            = CENTER_WIDTH - ATLAS.paddles[self.skin]["width"] / 2
     self.y            = VIRTUAL_HEIGHT - 30
     self.dx           = 0
     self.hitbox       = Hitbox(self.x, self.y,
-        ATLAS.paddles[self.skin].width,
-        ATLAS.paddles[self.skin].height)
+        ATLAS.paddles[self.skin]["width"],
+        ATLAS.paddles[self.skin]["height"])
 end
 
 function Paddle:update(dt)
@@ -20,12 +20,12 @@ function Paddle:update(dt)
     self.x  = self:clamp(dt)
     self.hitbox:update(
         self.x, self.y,
-        ATLAS.paddles[self.skin].width,
-        ATLAS.paddles[self.skin].height)
+        ATLAS.paddles[self.skin]["width"],
+        ATLAS.paddles[self.skin]["height"])
 end
 
 function Paddle:draw()
-    love.graphics.draw(ASSETS.graphics["breakout"], ATLAS.paddles[self.skin].quad, self.x, self.y)
+    love.graphics.draw(ASSETS.graphics["breakout"], ATLAS.paddles[self.skin]["quad"], self.x, self.y)
 
     ------------------------------------------------------DEBUG-------------------------------------------------------------------
     -- self.hitbox:draw()
@@ -49,7 +49,7 @@ end
 function Paddle:clamp(dt)
     return self.dx < 0
         and math.max(0, self.x)
-        or math.min(self.x, VIRTUAL_WIDTH - ATLAS.paddles[self.skin].width)
+        or math.min(self.x, VIRTUAL_WIDTH - ATLAS.paddles[self.skin]["width"])
 end
 
 function Paddle:upgrade()

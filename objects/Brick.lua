@@ -6,7 +6,7 @@ function Brick:init(x, y, skin, powerUp)
     self.x = x
     self.y = y
     self.hitbox = Hitbox(self.x, self.y,
-        ATLAS.bricks[self.skin].width, ATLAS.bricks[self.skin].height)
+        ATLAS.bricks[self.skin]["width"], ATLAS.bricks[self.skin]["height"])
 
     self.inPlay = true
     self.particles = ParticleManager()
@@ -24,7 +24,7 @@ end
 function Brick:draw()
     if self.inPlay then
         love.graphics.draw(ASSETS.graphics["breakout"],
-            ATLAS.bricks[self.skin + self.tier].quad, self.x, self.y)
+            ATLAS.bricks[self.skin + self.tier]["quad"], self.x, self.y)
 
         ------------------------------------------------------DEBUG-------------------------------------------------------------------
         -- self.hitbox:draw()
@@ -32,8 +32,8 @@ function Brick:draw()
     end
 
     self.particles:draw(
-        self.x + ATLAS.bricks[self.skin].width / 2,
-        self.y + ATLAS.bricks[self.skin].height / 2)
+        self.x + ATLAS.bricks[self.skin]["width"] / 2,
+        self.y + ATLAS.bricks[self.skin]["height"] / 2)
 end
 
 function Brick:setSkin(skin)
@@ -69,8 +69,8 @@ function Brick:hit()
 
         if self.powerUp then
             STATE.current.powerUps:spawn(
-                self.x + (ATLAS.bricks[self.skin].width / 2),
-                self.y + (ATLAS.bricks[self.skin].height / 2),
+                self.x + (ATLAS.bricks[self.skin]["width"] / 2),
+                self.y + (ATLAS.bricks[self.skin]["height"] / 2),
                 self.powerUp
             )
         end

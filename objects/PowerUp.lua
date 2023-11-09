@@ -4,12 +4,12 @@ local GRAVITY = 50
 
 function PowerUp:init(skin, x, y)
     self.skin   = skin
-    self.x      = x - (ATLAS.powerUps[5].width / 2)
-    self.y      = y - (ATLAS.powerUps[5].height / 2)
+    self.x      = x - (ATLAS.powerUps[5]["width"] / 2)
+    self.y      = y - (ATLAS.powerUps[5]["height"] / 2)
     self.hitbox = Hitbox(
         self.x, self.y,
-        ATLAS.powerUps[self.skin].width,
-        ATLAS.powerUps[self.skin].height
+        ATLAS.powerUps[self.skin]["width"],
+        ATLAS.powerUps[self.skin]["height"]
     )
 end
 
@@ -19,7 +19,7 @@ function PowerUp:update(dt)
 end
 
 function PowerUp:draw()
-    love.graphics.draw(ASSETS.graphics["breakout"], ATLAS.powerUps[self.skin].quad, self.x, self.y)
+    love.graphics.draw(ASSETS.graphics["breakout"], ATLAS.powerUps[self.skin]["quad"], self.x, self.y)
 
     ------------------------------------------------------DEBUG-------------------------------------------------------------------
     -- self.hitbox:draw()

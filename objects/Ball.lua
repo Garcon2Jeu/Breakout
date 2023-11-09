@@ -9,7 +9,7 @@ function Ball:init(skin, x, y, dx)
     self.dx     = dx or 0
     self.dy     = -50
     self.hitbox = Hitbox(self.x, self.y,
-        ATLAS.balls[self.skin].width + 2, ATLAS.balls[self.skin].height + 2)
+        ATLAS.balls[self.skin]["width"] + 2, ATLAS.balls[self.skin]["height"] + 2)
 end
 
 function Ball:update(dt)
@@ -23,7 +23,7 @@ end
 
 function Ball:draw()
     love.graphics.draw(ASSETS.graphics["breakout"],
-        ATLAS.balls[self.skin].quad, self.x, self.y)
+        ATLAS.balls[self.skin]["quad"], self.x, self.y)
 
     ------------------------------------------------------DEBUG-------------------------------------------------------------------
     -- self.hitbox:draw()
@@ -50,8 +50,8 @@ function Ball:clamp()
         return
     end
 
-    if self.dx > 0 and self.x + ATLAS.balls[self.skin].width >= VIRTUAL_WIDTH then
-        self.x = VIRTUAL_WIDTH - ATLAS.balls[self.skin].width
+    if self.dx > 0 and self.x + ATLAS.balls[self.skin]["width"] >= VIRTUAL_WIDTH then
+        self.x = VIRTUAL_WIDTH - ATLAS.balls[self.skin]["width"]
         self.dx = -self.dx * .9
         ASSETS.audio["wall_hit"]:play()
         return
@@ -69,13 +69,13 @@ function Ball:bounceOffPaddle()
 
     ASSETS.audio["paddle_hit"]:play()
 
-    self.y = STATE.current.paddle.y - ATLAS.balls[self.skin].height
+    self.y = STATE.current.paddle.y - ATLAS.balls[self.skin]["height"]
     self.dy = -self.dy
 
     local paddleCenter = STATE.current.paddle.x +
-        (ATLAS.paddles[STATE.current.paddle.skin].width / 2)
+        (ATLAS.paddles[STATE.current.paddle.skin]["width"] / 2)
     local multiplier = STATE.current.paddle.x +
-        ATLAS.paddles[STATE.current.paddle.skin].width / 2 - self.x
+        ATLAS.paddles[STATE.current.paddle.skin]["width"] / 2 - self.x
 
     if self.x < paddleCenter
         and STATE.current.paddle.dx < 0
@@ -107,16 +107,16 @@ end
 
 function Ball:bounceOffBricks(brick)
     if self.hitbox.left + 2 < brick.hitbox.left and self.dx > 0 then
-        self.x = brick.x - ATLAS.balls[self.skin].width - 2
+        self.x = brick.x - ATLAS.balls[self.skin]["width"] - 2
         self.dx = -self.dx
     elseif self.hitbox.left + 6 > brick.hitbox.left + 32 and self.dx < 0 then
-        self.x = brick.x + ATLAS.bricks[brick.skin].width + 2
+        self.x = brick.x + ATLAS.bricks[brick.skin]["width"] + 2
         self.dx = -self.dx
     elseif self.hitbox.top < brick.hitbox.top then
-        self.y = brick.y - ATLAS.balls[self.skin].height - 2
+        self.y = brick.y - ATLAS.balls[self.skin]["height"] - 2
         self.dy = -self.dy
     else
-        self.y = brick.y + ATLAS.bricks[brick.skin].height + 2
+        self.y = brick.y + ATLAS.bricks[brick.skin]["height"] + 2
         self.dy = -self.dy
     end
 
