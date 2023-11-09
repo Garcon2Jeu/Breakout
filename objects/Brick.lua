@@ -24,11 +24,6 @@ end
 
 function Brick:draw()
     if self.inPlay then
-        if self.powerUp then
-            self.skin = #ATLAS.bricks - 1
-            self.tier = 0
-        end
-
         love.graphics.draw(ASSETS.graphics["breakout"],
             ATLAS.bricks[self.skin + self.tier]["quad"], self.x, self.y)
 

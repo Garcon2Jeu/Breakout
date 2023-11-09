@@ -12,7 +12,7 @@ function FileManager:addFillerScores()
     local scoreString = ""
 
     for i = 1, 10 do
-        scoreString = scoreString .. "AAA\n" .. tostring(i * 1000) .. "\n"
+        scoreString = scoreString .. "AAA\n" .. tostring(i * 10000) .. "\n"
     end
 
     love.filesystem.write("scoreBoard.txt", scoreString)
