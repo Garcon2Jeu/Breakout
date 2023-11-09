@@ -34,4 +34,8 @@ function PowerUp:usePower()
     if self.skin == 9 then
         STATE.current.balls:multiply(2)
     end
+
+    if self.skin == 10 then
+        MapManager:unlockAllBricks(STATE.current.map)
+    end
 end

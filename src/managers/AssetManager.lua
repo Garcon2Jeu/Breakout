@@ -31,7 +31,9 @@ function AssetManager:getAudio()
         ["wall_hit"]         = love.audio.newSource("assets/audio/wall_hit.wav", "static"),
         ["paddle_upgrade"]   = love.audio.newSource("assets/audio/paddle_upgrade.wav", "static"),
         ["paddle_downgrade"] = love.audio.newSource("assets/audio/paddle_downgrade.wav", "static"),
-        ["ball_upgrade"]     = love.audio.newSource("assets/audio/ball_upgrade.wav", "static")
+        ["ball_upgrade"]     = love.audio.newSource("assets/audio/ball_upgrade.wav", "static"),
+        ["brick_locked"]     = love.audio.newSource("assets/audio/brick_locked.wav", "static"),
+        ["unlock_brick"]     = love.audio.newSource("assets/audio/unlock_brick.wav", "static")
     }
 end
 

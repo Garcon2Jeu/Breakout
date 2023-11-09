@@ -1,11 +1,11 @@
 MapManager = Class {}
 
-local maxRows = 5
+-- local maxRows = 5
 local maxColumns = 13
-local minRows = 3
-local minColumns = 7
+-- local minRows = 3
+-- local minColumns = 7
 
-local skins = { 1, 5, 9, 13, 17 }
+-- local skins = { 1, 5, 9, 13, 17 }
 
 function MapManager:factory(player)
     local map = {}
@@ -45,12 +45,19 @@ function MapManager:factory(player)
                 brick:setTier(solidTier)
             end
 
+
             table.insert(map, brick)
             ::continue::
         end
     end
 
-    map = self:insertPowerUps(map)
+    if player.highestTier == 3 then
+        map = self:insertLockedBrick(map)
+        map = self:insertPowerUp(map, 10)
+    end
+
+    map = self:insertPowerUp(map, 9)
+    map = self:insertPowerUp(map, 5)
 
     return map
 end
@@ -74,25 +81,45 @@ function MapManager:draw(map)
     end
 end
 
-function MapManager:insertPowerUps(map, ball, paddle)
-    local ballPowerUp = ball or false
-    local paddlePowerUp = paddle or false
+function MapManager:insertPowerUp(map, skin, powerUp)
+    local powerUp = powerUp or false
 
     for index, brick in ipairs(map) do
-        if not brick.powerUp and math.random(1, #map) == index then
-            if not ballPowerUp then
-                brick.powerUp = 9
-                ballPowerUp = true
-            else
-                brick.powerUp = 5
-                paddlePowerUp = true
-            end
+        if powerUp == true then
+            break
+        elseif brick.powerUp then
+            goto continue
         end
+
+        if math.random(1, #map) == index then
+            brick.powerUp = skin
+            powerUp = true
+        end
+
+        ::continue::
     end
 
-    if not ballPowerUp or not paddlePowerUp then
-        self:insertPowerUps(map, ballPowerUp, paddlePowerUp)
+    if not powerUp then
+        self:insertPowerUp(map, skin, powerUp)
     end
 
     return map
+end
+
+function MapManager:insertLockedBrick(map)
+    local index = math.random(1, #map)
+
+    if map[index].locked and not map[index].powerUp then
+        self:insertLockedBrick(map)
+    end
+
+    map[index]:lock()
+
+    return map
+end
+
+function MapManager:unlockAllBricks(map)
+    for key, brick in pairs(map) do
+        brick:unlock()
+    end
 end

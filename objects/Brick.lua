@@ -11,6 +11,7 @@ function Brick:init(x, y, skin, powerUp)
     self.inPlay = true
     self.particles = ParticleManager()
     self.powerUp = powerUp or nil
+    self.locked = false
 end
 
 function Brick:update(dt)
@@ -23,6 +24,11 @@ end
 
 function Brick:draw()
     if self.inPlay then
+        if self.powerUp then
+            self.skin = #ATLAS.bricks - 1
+            self.tier = 0
+        end
+
         love.graphics.draw(ASSETS.graphics["breakout"],
             ATLAS.bricks[self.skin + self.tier]["quad"], self.x, self.y)
 
@@ -51,7 +57,14 @@ function Brick:updateValue()
 end
 
 function Brick:hit()
+    if self.locked then
+        ASSETS.audio["brick_locked"]:play()
+        return
+    end
+
     ASSETS.audio["brick_hit_2"]:play()
+
+    STATE.current.player:addToScore(self.value)
 
     if self.tier > 0 then
         self.tier = self.tier - 1
@@ -81,4 +94,19 @@ function Brick:destroy()
     ASSETS.audio["brick_hit_1"]:play()
     self.inPlay = false
     self.particles:emit(self.skin)
+end
+
+function Brick:lock()
+    self.locked = true
+    self.placeholder = self.skin
+    self.skin = 22
+end
+
+function Brick:unlock()
+    if self.locked then
+        self.locked = false
+        self.skin = self.placeholder
+        self.placeholder = nil
+        ASSETS.audio["unlock_brick"]:play()
+    end
 end

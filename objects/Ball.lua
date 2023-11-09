@@ -96,7 +96,6 @@ end
 function Ball:hitBricks()
     for key, brick in pairs(STATE.current.map) do
         if brick.inPlay and self.hitbox:hasCollided(brick.hitbox) then
-            STATE.current.player:addToScore(brick.value)
             brick:hit()
             self:bounceOffBricks(brick)
 
