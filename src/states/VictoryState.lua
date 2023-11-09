@@ -3,6 +3,7 @@ VictoryState = Class {}
 function VictoryState:enter(params)
     self.player = params.player
     self.paddle = params.paddle
+    self.ballSkin = params.balls.skin
 end
 
 function VictoryState:update(dt)
@@ -11,7 +12,7 @@ function VictoryState:update(dt)
 
         self.player:increaseLevel()
         self.map = MapManager:factory(self.player)
-        self.balls = BallManager()
+        self.balls = BallManager(self.ballSkin)
 
         STATE:change("serve", self)
     end

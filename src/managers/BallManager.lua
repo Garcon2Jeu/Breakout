@@ -1,7 +1,8 @@
 BallManager = Class {}
 
-function BallManager:init()
-    self.inPlay = { Ball() }
+function BallManager:init(skin)
+    self.skin = skin or 1
+    self.inPlay = { Ball(self.skin) }
 end
 
 function BallManager:update(dt)
@@ -16,10 +17,6 @@ function BallManager:draw()
     for index, ball in ipairs(self.inPlay) do
         ball:draw()
     end
-end
-
-function BallManager:spawn()
-    table.insert(self.inPlay, Ball())
 end
 
 function BallManager:followPaddle(paddleSkin)
@@ -43,11 +40,12 @@ function BallManager:multiply(amount)
     for i = 1, amount do
         table.insert(self.inPlay,
             Ball(
-                1,
+                self.skin,
                 self.inPlay[1].x,
                 self.inPlay[1].y,
                 self.inPlay[1].dx + math.random(-20, 20)
             )
         )
+        ASSETS.audio["ball_upgrade"]:play()
     end
 end

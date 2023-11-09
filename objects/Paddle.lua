@@ -4,11 +4,12 @@ local SPEED = 200
 local upgradeOffset = 16
 
 function Paddle:init(skin)
-    self.skin   = skin
-    self.x      = CENTER_WIDTH - ATLAS.paddles[self.skin].width / 2
-    self.y      = VIRTUAL_HEIGHT - 30
-    self.dx     = 0
-    self.hitbox = Hitbox(self.x, self.y,
+    self.originalSkin = skin
+    self.skin         = skin
+    self.x            = CENTER_WIDTH - ATLAS.paddles[self.skin].width / 2
+    self.y            = VIRTUAL_HEIGHT - 30
+    self.dx           = 0
+    self.hitbox       = Hitbox(self.x, self.y,
         ATLAS.paddles[self.skin].width,
         ATLAS.paddles[self.skin].height)
 end
@@ -52,15 +53,17 @@ function Paddle:clamp(dt)
 end
 
 function Paddle:upgrade()
-    if self.skin < 4 then
+    if self.skin < self.originalSkin + 2 then
         self.skin = self.skin + 1
         self.x = self.x - upgradeOffset
+        ASSETS.audio["paddle_upgrade"]:play()
     end
 end
 
 function Paddle:downgrade()
-    if self.skin > 1 then
+    if self.skin > self.originalSkin - 1 then
         self.skin = self.skin - 1
         self.x = self.x + upgradeOffset
+        ASSETS.audio["paddle_downgrade"]:play()
     end
 end
