@@ -1,4 +1,4 @@
-##Flappy Bird
+## Breakout
 
 Pour la troisième semaine de la formation GD50 de l'université Harvard, l'objectif était de recréer le jeu Breakout avec le moteur de jeu LÖVE2D et le language de programmation Lua
 
