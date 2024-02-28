@@ -1,6 +1,6 @@
-##Flappy Bird
+## Breakout
 
-Pour la troisième semaine de la formation GD50 de l'université Harvard, l'objectif était de recréer le jeu Breakout avec le moteur de jeu LÖVE2D et le language de programmation Lua
+Pour la quatrième semaine de la formation GD50 de l'université Harvard, l'objectif était de recréer le jeu Breakout avec le moteur de jeu LÖVE2D et le language de programmation Lua
 
 Les sujets abordés sont les suivants:
 
@@ -17,4 +17,6 @@ Pour y jouer, vous devez tout d'abord télécharger le moteur LÖVE2D disponible
 
 https://love2d.org/#download
 
-Vous pouvez maintenant télécharger et lancer le fichier du jeu "Pong.love".
+Vous pouvez maintenant télécharger et lancer le fichier du jeu "Breakout.love".
+
+<img src="breakout_screnshoot.png">
